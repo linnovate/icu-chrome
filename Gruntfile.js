@@ -65,7 +65,7 @@ module.exports = function (grunt) {
     // Grunt server and debug server setting
     connect: {
       options: {
-        port: 3000,
+        port: 9000,
         livereload: 35729,
         // change this to '0.0.0.0' to access the server from outside
         hostname: 'localhost'
@@ -314,8 +314,7 @@ module.exports = function (grunt) {
     'chromeManifest:dist',
     'useminPrepare',
     'concurrent:dist',
-    // No UI feature selected, cssmin task will be commented
-    // 'cssmin',
+    'cssmin',
     'concat',
     'uglify',
     'copy',
