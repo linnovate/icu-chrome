@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -20,7 +20,9 @@
         "http://*/*",
         "https://*/*"
       ],
+      "css": ["bower_components/sweetalert/dist/sweetalert.css"],
       "js": [
+        "bower_components/sweetalert/dist/sweetalert.min.js",
         "scripts/contentscript.js"
       ],
       "run_at": "document_end",
