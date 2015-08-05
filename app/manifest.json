@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -17,8 +17,8 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "http://www.linnovate.net/",
+        "https://www.linnovate.net/"
       ],
       "css": ["bower_components/sweetalert/dist/sweetalert.css"],
       "js": [
@@ -29,9 +29,5 @@
       "all_frames": false
     }
   ],
-  "permissions": [
-    "tabs",
-    "http://*/*",
-    "https://*/*"
-  ]
+  "permissions": ["tabs"]
 }
