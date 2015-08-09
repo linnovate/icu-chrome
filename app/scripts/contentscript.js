@@ -15,17 +15,14 @@ function detectDescription(e){
   }
 }
 function taskCreation(description){
-  console.log(description);
   swal({
     title: "Create a task",
     text: "Desciption: " + description,
     type: "input",
     showCancelButton: true,
     closeOnConfirm: false,
-    inputPlaceholder: "Name of Task",
-    showLoaderOnConfirm: true
+    inputPlaceholder: "Name of Task"
   },function(inputValue){
-    console.log(description);
     if (inputValue === false) return false;
     if (inputValue === "") {
       swal.showInputError("You need to write a name!");
@@ -36,16 +33,17 @@ function taskCreation(description){
 
 function createTask(name, description){
   var response = postToICU(name,description);
+  //swal.close();
   if (response) {
     swal({
       title: "Task Created",
       text: "Name: " + name + "\nDescription: " + description,
       type: "success",
       showLoaderOnConfirm: false});
+
   }
   else {
     swal("Error", "Unable to create task", "error");
-    swal.enableButtons();
   }
 }
 
