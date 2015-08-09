@@ -37,10 +37,15 @@ function taskCreation(description){
 function createTask(name, description){
   var response = postToICU(name,description);
   if (response) {
-    swal("Task Created", "Name: " + name + "\nDescription: " + description,"success");
+    swal({
+      title: "Task Created",
+      text: "Name: " + name + "\nDescription: " + description,
+      type: "success",
+      showLoaderOnConfirm: false});
   }
   else {
     swal("Error", "Unable to create task", "error");
+    swal.enableButtons();
   }
 }
 
@@ -51,6 +56,14 @@ function postToICU(title,description) {
     title: title,
     description: description
   };
+  var pairs = [];
+  for (var key in data) {
+    if (data.hasOwnProperty(key)) {
+      pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+    }
+  }
+ var form_data = pairs.join("&");
+
   var xhr = new  XMLHttpRequest();
   xhr.onload = function() {
     var responseText = xhr.responseText;
@@ -72,7 +85,7 @@ function postToICU(title,description) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.setRequestHeader("Authorization",
       "Bearer eyJhbGciOiJIUzI1NiJ9.JTdCJTIyX2lkJTIyOiUyMjU1YzBiMjU2YjRkNTZmODU0NDJkMTNjOSUyMiwlMjJuYW1lJTIyOiUyMlJhZmFlbCUyMiwlMjJlbWFpbCUyMjolMjJyYWZhZWxAbGlubm92YXRlLm5ldCUyMiwlMjJ1c2VybmFtZSUyMjolMjJyYWZhZWxiJTIyLCUyMl9fdiUyMjowLCUyMnByb3ZpZGVyJTIyOiUyMmxvY2FsJTIyLCUyMnJvbGVzJTIyOiU1QiUyMmF1dGhlbnRpY2F0ZWQlMjIlNUQlN0Q.qtk5vD7m-gFSRUaKxRa-cabMu0ObNSXvrRLuxaFsyqU");
-    xhr.send(JSON.stringify(data));
+    xhr.send(form_data);
   }
   catch (e){
     return false;
