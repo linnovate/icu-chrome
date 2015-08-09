@@ -37,10 +37,7 @@ function taskCreation(description){
 function createTask(name, description){
   var response = postToICU(name,description);
   if (response) {
-    swal({
-      title: "Task Created",
-      text: "Name: " + name + "\nDescription: " + description
-    });
+    swal("Task Created", "Name: " + name + "\nDescription: " + description,"success");
   }
   else {
     swal("Error", "Unable to create task", "error");
@@ -50,7 +47,7 @@ function createTask(name, description){
 
 function postToICU(title,description) {
   var data = {
-    project: "55c0c22c18cea218577d823c",
+    project: "55c73e4d18c2f1692baca923",
     title: title,
     description: description
   };
@@ -71,11 +68,11 @@ function postToICU(title,description) {
   //  }
   //}
   try {
-    xhr.open('POST', 'http://icu.dev6.linnovate.net/api/tasks', false);
+    xhr.open('POST', 'http://api.icu.dev6.linnovate.net/api/tasks', false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.setRequestHeader("Authorization",
       "Bearer eyJhbGciOiJIUzI1NiJ9.JTdCJTIyX2lkJTIyOiUyMjU1YzBiMjU2YjRkNTZmODU0NDJkMTNjOSUyMiwlMjJuYW1lJTIyOiUyMlJhZmFlbCUyMiwlMjJlbWFpbCUyMjolMjJyYWZhZWxAbGlubm92YXRlLm5ldCUyMiwlMjJ1c2VybmFtZSUyMjolMjJyYWZhZWxiJTIyLCUyMl9fdiUyMjowLCUyMnByb3ZpZGVyJTIyOiUyMmxvY2FsJTIyLCUyMnJvbGVzJTIyOiU1QiUyMmF1dGhlbnRpY2F0ZWQlMjIlNUQlN0Q.qtk5vD7m-gFSRUaKxRa-cabMu0ObNSXvrRLuxaFsyqU");
-    xhr.send(data);
+    xhr.send(JSON.stringify(data));
   }
   catch (e){
     return false;
