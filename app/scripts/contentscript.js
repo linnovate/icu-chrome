@@ -17,11 +17,12 @@ function detectDescription(e){
 function taskCreation(description){
   swal({
     title: "Create a task",
-    text: "Desciption: " + description,
+    text: "<b>Desciption:</b> " + description,
     type: "input",
     showCancelButton: true,
     closeOnConfirm: false,
-    inputPlaceholder: "Name of Task"
+    inputPlaceholder: "Name of Task",
+    html: true
   },function(inputValue){
     if (inputValue === false) return false;
     if (inputValue === "") {
@@ -35,11 +36,18 @@ function createTask(name, description){
   var response = postToICU(name,description);
   //swal.close();
   if (response) {
+    var responseJSON = JSON.parse(response);
+    console.log(responseJSON);
+    var taskId = responseJSON._id;
+    console.log(taskId);
+    var taskURL= settings.projectLink + settings.project + '/' +taskId;
     swal({
       title: "Task Created",
-      text: "Name: " + name + "\nDescription: " + description,
+      text: "<b>Name:</b> <a href=" + taskURL + ">" + name + "</a><br/><b>Description:</b> " + description,
       type: "success",
-      showLoaderOnConfirm: false});
+      showLoaderOnConfirm: false,
+      html: true
+    });
 
   }
   else {
@@ -61,14 +69,14 @@ function postToICU(title,description) {
       pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
     }
   }
- var form_data = pairs.join("&");
+  var form_data = pairs.join("&");
 
   var xhr = new  XMLHttpRequest();
-  xhr.onload = function() {
-    var responseText = xhr.responseText;
-    console.log(responseText);
-    // process the response.
-  };
+  //xhr.onload = function() {
+  //  var responseText = xhr.responseText;
+  //  console.log(responseText);
+  //  // process the response.
+  //};
   //xhr.onreadystatechange = ready;
   //
   //function ready() {
@@ -80,7 +88,7 @@ function postToICU(title,description) {
   //  }
   //}
   try {
-    xhr.open('POST', 'http://api.icu.dev6.linnovate.net/api/tasks', false);
+    xhr.open('POST', settings.server, false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     //xhr.setRequestHeader("Authorization",
     //  "Bearer eyJhbGciOiJIUzI1NiJ9.JTdCJTIyX2lkJTIyOiUyMjU1YzBiMjU2YjRkNTZmODU0NDJkMTNjOSUyMiwlMjJuYW1lJTIyOiUyMlJhZmFlbCUyMiwlMjJlbWFpbCUyMjolMjJyYWZhZWxAbGlubm92YXRlLm5ldCUyMiwlMjJ1c2VybmFtZSUyMjolMjJyYWZhZWxiJTIyLCUyMl9fdiUyMjowLCUyMnByb3ZpZGVyJTIyOiUyMmxvY2FsJTIyLCUyMnJvbGVzJTIyOiU1QiUyMmF1dGhlbnRpY2F0ZWQlMjIlNUQlN0Q.qtk5vD7m-gFSRUaKxRa-cabMu0ObNSXvrRLuxaFsyqU");
@@ -92,7 +100,7 @@ function postToICU(title,description) {
   }
 
   if(IsRequestSuccessful(xhr)){
-    return true;
+    return xhr.responseText;
   }
   else {
     return false;
