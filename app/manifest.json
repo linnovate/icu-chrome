@@ -20,10 +20,11 @@
         "http://www.linnovate.net/",
         "https://www.linnovate.net/"
       ],
-      "css": ["bower_components/sweetalert/dist/sweetalert.css"],
+      "css": ["lib/sweetalert/sweetalert.css"],
       "js": [
-        "bower_components/sweetalert/dist/sweetalert.min.js",
-        "scripts/contentscript.js"
+        "lib/sweetalert/sweetalert.min.js",
+        "scripts/contentscript.js",
+        "scripts/settings.js"
       ],
       "run_at": "document_end",
       "all_frames": false
