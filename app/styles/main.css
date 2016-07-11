@@ -1,3 +1,82 @@
 body {
-  padding: 20px;
+  color: white;
+  background-image: url("http://www.hotel-r.net/im/hotel/bg/forest-view-21.jpg"); 
+    font-family: 'Open Sans';
+}
+.header {
+ 	display: flex;
+ }
+ .middle-header {
+ 	flex-grow: 1;
+ }
+ .header > div:first-child{
+ 	font-size: 35px;
+ }
+ .header > div:last-child {
+ 	font-size: 19px;
+    font-weight: 600;
+ }
+ .main {
+ 	display: flex;
+ 	height: calc(100vh - 41px);
+ }
+ .main > div:first-child  {
+ 	width: 57%;
+ 	display: flex;
+ }
+  .main > div:nth-child(2)  {
+ 	width: 34%;
+ }
+ .main .opening {
+ 	margin: auto;
+    width: 79%;
+ }
+ .main .name {
+ 	    font-size: 77px;
+ }
+ .main .sentence {
+ 	    font-size: 42px;
+ }
+ .bulletin {
+ 	background-color: white;
+ }
+.main .actions {
+	display: flex;
+	justify-content: center;
+}
+.main .actions > div {
+    background-color: rgba(0, 0, 0, 0.58);
+    text-align: center;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 30px 0px 9px 0px;
+    border-bottom: 3px solid;
+    width: 23%;
+
+}
+.main .actions > div div {
+    margin-top: 10px;
+    font-size: 17px;
+}
+.bulletin ul{
+    border-bottom: 1px solid #E1E1E1;
+}
+.bulletin ul>li {
+    display: inline-block;
+    font-size: 21px;
+    padding: 0 36px 0 36px;
+    margin-left: -4px;
+}
+.bulletin ul>li>a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 0 5px 0;
+}
+.bulletin ul>li.active {
+    border-bottom: 3px solid #F9A000;
+    color: #F9A000;
+}
+.bulletin ul>li.active a{
+    color: #F9A000;
 }
