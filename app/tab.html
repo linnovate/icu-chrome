@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>New Tab</title>
-    <link rel="stylesheet" type="text/css" href="styles/main.css">
+	<meta charset="UTF-8">
+	<title>New Tab</title>
+	<link rel="stylesheet" type="text/css" href="styles/main.css">
+	<link rel="stylesheet" type="text/css" href="lib/open-sans/css/open-sans.css" />
 </head>
 <body ng-app='app' ng-controller='icuCtrl'>
 	<div class="header">
@@ -12,35 +13,42 @@
 		</div>
 		<div class="middle-header"></div>
 		<div>
-			idan
+			<div>Idan</div>
+			<img src="https://wallpaperscraft.com/image/jason_statham_actor_person_bristles_man_brunette_18978_3840x2400.jpg" />
 		</div>
 	</div>
 	<div class="main">
-		<div>
+		<div class="region">
 			<div class="opening">
-			<div class="name">
-				Hi, IDAN
-			</div>
-			<div class="sentence">
-				What do you want to do now ?
-			</div>
-			<div class="actions">
-				<div class="new-meeting">
-                   <img src="images/icon-calendar.svg" />
-                   <div>new meeting</div>
+				<div>
+				<div class="name">
+					Hi, IDAN
 				</div>
-				<div class="new-task">
-				 <img src="images/icon-new-task.svg" />
-				<div>new task</div>
-			   </div>
-				<div class="new-project">
-				 <img src="images/icon-new-project.svg" />
-				<div>new project</div>
+				<div class="sentence">
+					What do you want to do now ?
+				</div>
+
+				<ul class="actions">
+					<li class="new-meeting">
+	                    <img src="images/icon-calendar.svg" />
+	                    <div>new meeting</div>
+					</li>
+					<li class="new-task">
+						<img src="images/icon-new-task.svg" />
+						<div>new task</div>
+				   </li>
+					<li class="new-project">
+						<img src="images/icon-new-project.svg" />
+						<div>new project</div>
+					</li>
+				</ul>
 			</div>
 			</div>
-		</div>
+			<div class="notifications">
+				<div class="notif-icon"></div>
+			</div>
 	    </div>
-		<div class="bulletin">
+		<div class="region bulletin">
 			<header>
 		    <nav>
 		         <ul>
@@ -51,10 +59,10 @@
 		    </nav>
 		</header>
 		</div>
-		<div>
+		<div class="region">
 		</div>
 		</div>
-	  <script type="text/javascript" src="lib/angular.min.js"></script>
+	  <script type="text/javascript" src="lib/angular/angular.min.js"></script>
       <script type="text/javascript" src="scripts/app.js"></script>
 </body>
 </html>
