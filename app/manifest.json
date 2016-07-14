@@ -34,5 +34,16 @@
       "all_frames": false
     }
   ],
-  "permissions": ["tabs"]
+  "permissions": [
+    "tabs",
+    "identity"
+  ],
+  "oauth2": {
+    "client_id": "473899478840-mf4tsd1orb7ckppelcb2muj65t646knc.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/calendar",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  }
 }

@@ -12,17 +12,17 @@
 			ME
 		</div>
 		<div class="middle-header"></div>
-		<div>
-			<div>Idan</div>
-			<img src="https://wallpaperscraft.com/image/jason_statham_actor_person_bristles_man_brunette_18978_3840x2400.jpg" />
+		<div ng-show="profile.name">
+			<div class="profile-name">{{profile.name}}&nbsp;</div>
+			<img class="profile-image" src="{{profile.image}}" />
 		</div>
 	</div>
 	<div class="main">
 		<div class="region">
 			<div class="opening">
 				<div>
-				<div class="name">
-					Hi, IDAN
+				<div class="profile name" ng-show="profile.name">
+					Hi, {{profile.name}}
 				</div>
 				<div class="sentence">
 					What do you want to do now ?
@@ -30,8 +30,8 @@
 
 				<ul class="actions">
 					<li class="new-meeting">
-	                    <img src="images/icon-calendar.svg" />
-	                    <div>new meeting</div>
+            <img src="images/icon-calendar.svg" />
+            <div>new meeting</div>
 					</li>
 					<li class="new-task">
 						<img src="images/icon-new-task.svg" />
@@ -53,16 +53,29 @@
 		    <nav>
 		         <ul>
 			        <li ng-repeat="tab in tabs" ng-click="select($index)" ng-class="{active: $index == selected}">
-			            <a href="#" title="{{tab.title}}">{{tab.title}}</a>			           
+			            <a href="#" title="{{tab.title}}">{{tab.title}}</a>
 			        </li>
 			    </ul>
 		    </nav>
-		</header>
+			</header>
+			<section>
+				<ul ng-repeat="tab in tabs" ng-show="$index == selected">
+					<li ng-repeat="item in tab.items" style="color:black">
+					<hr>
+						<div>
+							<div>{{item.start.dateTime | date: 'H:mm'}} - {{item.end.dateTime | date: 'H:mm'}}</div>
+							<div class="summary"> {{item.summary}}</div>
+							<div>{{item.location}}</div>
+							<div><a href="mailto:{{item.creator.email}}">{{item.creator.displayName || item.creator.email}}</a></div>
+						</div>
+					</li>
+				</ul>
+			</section>
 		</div>
 		<div class="region">
 		</div>
-		</div>
-	  <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-      <script type="text/javascript" src="scripts/app.js"></script>
+	</div>
+  <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+  <script type="text/javascript" src="scripts/app.js"></script>
 </body>
 </html>
