@@ -35,28 +35,37 @@ angular.module("app", [])
                 singleEvents: true,
                 showDeleted: false,
                 orderBy: 'startTime',
-                maxResults: 50
+                maxResults: 10
             },
             headers: {
                 'Authorization': 'Bearer ' + token
             }
         }).then(function(res){
-            console.dir(res.data.items)
             $scope.tabs[0].items = res.data.items.map(function(item){
-                return item
+                return item;
             })
         })
     }
 
     chrome.identity.getAuthToken({
         interactive: true
-    }, function(token){
-        console.log(token)
-        getCalendarEvents(token)
-        getProfileInfo(token)
-        chrome.identity.getProfileUserInfo(function(info){
-            console.log(info)
+    }, function(token) {
+        getCalendarEvents(token);
+        getProfileInfo(token);
+        chrome.identity.removeCachedAuthToken({
+            token: token
         })
+    });
+
+    $http({
+        method: 'POST',
+        url: 'http://icu.dev9.linnovate.net:3000/api/login',
+        data: {
+            email: "avraham@linnovate.net",
+            password: "036164978"
+        }
+    }).then(function(res){
+        console.log(res);
     })
 
     $scope.selected = 0;

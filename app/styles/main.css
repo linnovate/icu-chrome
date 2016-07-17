@@ -124,5 +124,9 @@ section ul>li {
     display: block;
 }
 section li>div {
+    font-size: 14px;
+}
+.summary {
+    font-weight: bold;
     font-size: 18px;
 }

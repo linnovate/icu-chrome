@@ -39,10 +39,9 @@
     "identity"
   ],
   "oauth2": {
-    "client_id": "473899478840-mf4tsd1orb7ckppelcb2muj65t646knc.apps.googleusercontent.com",
+    "client_id": "473899478840-1nf3bmmc4hdlbtto3ns7nect1v81bsi9.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/drive",
-      "https://www.googleapis.com/auth/calendar",
+      "https://www.googleapis.com/auth/calendar.readonly",
       "https://www.googleapis.com/auth/userinfo.profile"
     ]
   }

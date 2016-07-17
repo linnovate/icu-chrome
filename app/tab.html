@@ -13,36 +13,36 @@
 		</div>
 		<div class="middle-header"></div>
 		<div ng-show="profile.name">
-			<div class="profile-name">{{profile.name}}&nbsp;</div>
-			<img class="profile-image" src="{{profile.image}}" />
+			<div>{{profile.name}}&nbsp;</div>
+			<img src="{{profile.image}}" />
 		</div>
 	</div>
 	<div class="main">
 		<div class="region">
 			<div class="opening">
-				<div>
-				<div class="profile name" ng-show="profile.name">
-					Hi, {{profile.name}}
-				</div>
-				<div class="sentence">
-					What do you want to do now ?
-				</div>
+				<div ng-show="profile.name">
+					<div class="name">
+						Hi, {{profile.name}}
+					</div>
+					<div class="sentence">
+						What do you want to do now ?
+					</div>
 
-				<ul class="actions">
-					<li class="new-meeting">
-            <img src="images/icon-calendar.svg" />
-            <div>new meeting</div>
-					</li>
-					<li class="new-task">
-						<img src="images/icon-new-task.svg" />
-						<div>new task</div>
-				   </li>
-					<li class="new-project">
-						<img src="images/icon-new-project.svg" />
-						<div>new project</div>
-					</li>
-				</ul>
-			</div>
+					<ul class="actions">
+						<li class="new-meeting">
+	            <img src="images/icon-calendar.svg" />
+	            <div>new meeting</div>
+						</li>
+						<li class="new-task">
+							<img src="images/icon-new-task.svg" />
+							<div>new task</div>
+					   </li>
+						<li class="new-project">
+							<img src="images/icon-new-project.svg" />
+							<div>new project</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div class="notifications">
 				<div class="notif-icon"></div>
@@ -63,7 +63,7 @@
 					<li ng-repeat="item in tab.items" style="color:black">
 					<hr>
 						<div>
-							<div>{{item.start.dateTime | date: 'H:mm'}} - {{item.end.dateTime | date: 'H:mm'}}</div>
+							<div>{{item.start.dateTime | date: 'MMM-dd:&nbsp;&nbsp;H:mm'}} - {{item.end.dateTime | date: 'H:mm'}}</div>
 							<div class="summary"> {{item.summary}}</div>
 							<div>{{item.location}}</div>
 							<div><a href="mailto:{{item.creator.email}}">{{item.creator.displayName || item.creator.email}}</a></div>
