@@ -10,7 +10,17 @@ angular.module("app", [])
             items: []
         }
     })
-
+    $scope.image ='';
+    $scope.server = 'http://localhost:3000';
+    $http({
+          method: 'GET',
+          url: 'http://localhost:3000/api/images'
+        }).then(function successCallback(response) {
+            $scope.image = response.data.src;
+            console.log('res', $scope.image);
+          }, function errorCallback(response) {
+            console.log('errorCallback', response)
+    });
     var getProfileInfo = function(token) {
         $http({
             method: 'GET',
