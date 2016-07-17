@@ -9,18 +9,8 @@ angular.module("app", [])
             title: item,
             items: []
         }
-    })
-    $scope.image ='';
-    $scope.server = 'http://localhost:3000';
-    $http({
-          method: 'GET',
-          url: 'http://localhost:3000/api/images'
-        }).then(function successCallback(response) {
-            $scope.image = response.data.src;
-            console.log('res', $scope.image);
-          }, function errorCallback(response) {
-            console.log('errorCallback', response)
     });
+
     var getProfileInfo = function(token) {
         $http({
             method: 'GET',
@@ -67,7 +57,7 @@ angular.module("app", [])
         })
     });
 
-    $http({
+/*    $http({
         method: 'POST',
         url: 'http://icu.dev9.linnovate.net:3000/api/login',
         data: {
@@ -76,7 +66,7 @@ angular.module("app", [])
         }
     }).then(function(res){
         console.log(res);
-    })
+    })*/
 
     $scope.selected = 0;
 
