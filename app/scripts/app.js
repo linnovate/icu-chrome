@@ -31,7 +31,7 @@ angular.module("app", [])
             method: 'GET',
             url: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
             params: {
-                timeMin: new Date(1465826445308).toISOString(), // 1465826445308
+                timeMin: new Date().toISOString(), // 1465826445308
                 singleEvents: true,
                 showDeleted: false,
                 orderBy: 'startTime',
