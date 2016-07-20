@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module("app", [])
-    .controller('icuCtrl', function ($scope, $http) {
+.controller('icuCtrl', function ($scope, $http) {
 
     $scope.tabs = ['meetings','tasks','project'].map(function(item, i){
         return {
@@ -31,11 +31,12 @@ angular.module("app", [])
             method: 'GET',
             url: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
             params: {
-                timeMin: new Date().toISOString(), // 1465826445308
+                timeMin: new Date().toISOString(), // (1450274445308)
+                timeMax: new Date(new Date().setHours(23,59,59,999)).toISOString(), // end of day
                 singleEvents: true,
                 showDeleted: false,
                 orderBy: 'startTime',
-                maxResults: 10
+                maxResults: 100
             },
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -71,7 +72,7 @@ angular.module("app", [])
     $scope.selected = 0;
 
     $scope.select= function(index) {
-       $scope.selected = index; 
-    };
+     $scope.selected = index; 
+ };
 
 });
