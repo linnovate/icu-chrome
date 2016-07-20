@@ -100,7 +100,7 @@ body {
     margin-top: 10px;
     font-size: 20px;
 }
-.bulletin ul{
+.bulletin header{
     border-bottom: 1px solid #E1E1E1;
 }
 header ul>li {
@@ -122,6 +122,10 @@ header ul>li {
 .bulletin ul>li.active a{
     color: #F9A000;
     font-family: 'Open Sans semibold';
+}
+section ul {
+    overflow: auto;
+    height: calc(100vh - 224px);
 }
 section ul>li {
     display: block;
