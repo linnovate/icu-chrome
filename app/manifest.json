@@ -19,11 +19,7 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "http://www.linnovate.net/*",
-        "https://www.linnovate.net/*",
-        "http://www.ynet.co.il/*"
-      ],
+      "matches":[],
       "css": ["lib/sweetalert/sweetalert.css"],
       "js": [
         "lib/sweetalert/sweetalert.min.js",
