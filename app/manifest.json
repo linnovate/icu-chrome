@@ -39,7 +39,7 @@
     "identity"
   ],
   "oauth2": {
-    "client_id": "473899478840-1nf3bmmc4hdlbtto3ns7nect1v81bsi9.apps.googleusercontent.com",
+    "client_id": "473899478840-g913bbp5p8jcso3qa30cbtac10j21t08.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/calendar.readonly",
       "https://www.googleapis.com/auth/userinfo.profile"
