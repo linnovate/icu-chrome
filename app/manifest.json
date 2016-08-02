@@ -19,7 +19,7 @@
   },
   "content_scripts": [
     {
-      "matches":[],
+      "matches":["http://www.xxx.com/*","http://zzz.com/*"],
       "css": ["lib/sweetalert/sweetalert.css"],
       "js": [
         "lib/sweetalert/sweetalert.min.js",

@@ -31,7 +31,7 @@ angular.module("app", [])
       method: 'GET',
       url: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
       params: {
-        timeMin: new Date(1465981200000).toISOString(), // (1465654232773)
+        timeMin: new Date().toISOString(), // (1465654232773)
         timeMax: new Date(new Date().setHours(23,59,59,999)).toISOString(), // end of day
         singleEvents: true,
         showDeleted: false,
