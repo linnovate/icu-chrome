@@ -31,7 +31,7 @@
   z-index: 1;
 }
 #left-bar {
-  background: rgba(255,255,255,0.85);
+  background: rgba(210, 201, 201, 0.85);
   width: 250px;
   min-height: 500px;
   height: 100%;
@@ -41,4 +41,37 @@
 }
 #left-bar.open {
   left: 0px;
+}
+
+
+
+
+
+ul.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.list li {
+    border-bottom: 1px solid #333;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    margin: 15px auto;
+    width: 90%;
+}
+
+ul.list input {
+    width: 100%;
+    color: #333;
+    height: 30px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+ul.list label {
+    /* width: 100%; */
+    display: block;
+    /* color: black; */
+    color: #333;
 }

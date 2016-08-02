@@ -11,10 +11,24 @@
   <div class="header">
     <div id="left-bar">
       <div class="header"></div>
-      <select>
-        <option>/api/projects</option>
-        <option>/api/circles</option>
-      </select>
+      <ul class="list">
+        <li>
+          <label for="root">Root</label>
+          <input id="root" type="text"/>
+        </li>
+                <li>
+          <label for="root">Background</label>
+          <input id="root" type="text"/>
+        </li>
+        <li>
+          <label for="root">Circles</label>
+          <input id="root" type="text"/>
+        </li>
+        <li>
+          <label for="root">Profile</label>
+          <input id="root" type="text"/>
+        </li>
+      </ul>
     </div>
     <div id="toggle-left-bar">
       ME
@@ -37,16 +51,22 @@
           </div>
           <ul class="actions">
             <li class="new-meeting">
-              <img src="images/icon-calendar.svg" />
-              <div>new meeting</div>
+              <a href="http://root.hrm.demo.linnovate.net/discussions">
+                <img src="images/icon-calendar.svg" />
+                <div>discussion</div>
+              </a>
             </li>
             <li class="new-task">
-              <img src="images/icon-new-task.svg" />
-              <div>new task</div>
+              <a href="http://root.hrm.demo.linnovate.net/tasks">
+                <img src="images/icon-new-task.svg" />
+                <div>tasks</div>
+              </a>
              </li>
             <li class="new-project">
-              <img src="images/icon-new-project.svg" />
-              <div>new project</div>
+              <a href="http://root.hrm.demo.linnovate.net/projects">
+                <img src="images/icon-new-project.svg" />
+                <div>projects</div>
+              </a>
             </li>
           </ul>
         </div>

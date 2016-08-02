@@ -58,14 +58,17 @@ body {
   margin-top: 15px;
   list-style-type: none;
 }
-.main .actions > li {
- background-color: rgba(0, 0, 0, 0.8);
-  text-align: center;
-  margin-right: 9px;
-  padding: 38px 0px 10px 0px;
-  border-bottom: 3px solid;
-  width: 160px;
-  margin-bottom: 10px;
+.main .actions > li > a {
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    margin-right: 9px;
+    padding: 38px 0px 10px 0px;
+    border-bottom: 3px solid;
+    width: 160px;
+    margin-bottom: 10px;
+    display: block;
+    color: white;
+    text-decoration: blink;
 }
 .main .actions > li div {
   margin-top: 10px;
