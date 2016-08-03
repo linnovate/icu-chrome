@@ -73,11 +73,13 @@ angular.module("app", [])
 
   $scope.closeMeets = function(date) {
 
-    var distance = new Date(date).getTime() - new Date(1465981200000).getTime();
+    var distance = new Date(date).getTime() - new Date().getTime();
     distance = Math.ceil(distance / (24*60*60*1000));
+    if(distance < 0) distance = 0;
 
     var style = {};
     switch (distance) {
+      case 0:
       case 1:
         style = {
           color: '#f06f1b',
@@ -110,9 +112,9 @@ angular.module("app", [])
   };
 
   $scope.getDist = function(a, b) {
-    var dist = Math.round((new Date(a).getTime() - new Date(1465984200000/* + 1200000 + 60*60*1000*/).getTime()) / 60000);
+    var dist = Math.round((new Date(b).getTime() - new Date(a).getTime()) / 60000);
     if(dist < 0 ) {
-      if(Math.round(new Date(b).getTime() - new Date(1465984200000/* + 1200000 + 60*60*1000*/).getTime()) > 0) {
+      if(Math.round(new Date(b).getTime() - new Date().getTime()) > 0) {
         return ' now!';
       } else {
         return ' passed'

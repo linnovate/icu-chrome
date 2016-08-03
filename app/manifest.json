@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -20,9 +20,10 @@
   "content_scripts": [
     {
       "matches": [
-	"http://nosuchsite.com/*",
-	"http://goo.com/*"
-	],
+        "http://www.linnovate.net/*",
+        "https://www.linnovate.net/*",
+        "http://www.ynet.co.il/*"
+      ],
       "css": ["lib/sweetalert/sweetalert.css"],
       "js": [
         "lib/sweetalert/sweetalert.min.js",
