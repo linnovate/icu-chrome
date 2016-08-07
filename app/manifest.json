@@ -8,39 +8,21 @@
     "128": "images/icon-128.png"
   },
   "default_locale": "en",
-  "background": {
-    "scripts": [
-      "scripts/chromereload.js",
-      "scripts/background.js"
-    ]
-  },
   "chrome_url_overrides": {
     "newtab": "tab.html"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "http://www.linnovate.net/*",
-        "https://www.linnovate.net/*",
-        "http://www.ynet.co.il/*"
-      ],
-      "css": ["lib/sweetalert/sweetalert.css"],
-      "js": [
-        "lib/sweetalert/sweetalert.min.js",
-        "scripts/contentscript.js",
-        "scripts/settings.js"
-      ],
-      "run_at": "document_end",
-      "all_frames": false
-    }
-  ],
+  "options_page": "options.html",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": [
     "tabs",
-    "identity"
+    "identity",
+    "storage",
+    "https://clients3.google.com/cast/chromecast/home"
   ],
   "oauth2": {
-    "client_id": "473899478840-1nf3bmmc4hdlbtto3ns7nect1v81bsi9.apps.googleusercontent.com",
+    "client_id": "473899478840-g913bbp5p8jcso3qa30cbtac10j21t08.apps.googleusercontent.com",
     "scopes": [
+      "https://www.googleapis.com/auth/tasks.readonly",
       "https://www.googleapis.com/auth/calendar.readonly",
       "https://www.googleapis.com/auth/userinfo.profile"
     ]

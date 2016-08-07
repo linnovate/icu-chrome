@@ -5,33 +5,15 @@
   <title>New Tab</title>
   <link rel="stylesheet" type="text/css" href="styles/header.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
+  <link rel="stylesheet" type="text/css" href="styles/login.css">
   <link rel="stylesheet" type="text/css" href="lib/open-sans/css/open-sans.css" />
 </head>
 <body ng-app="app" ng-controller="icuCtrl">
   <div class="header">
-    <div id="left-bar">
-      <div class="header"></div>
-      <ul class="list">
-        <li>
-          <label for="root">Root</label>
-          <input id="root" type="text"/>
-        </li>
-                <li>
-          <label for="root">Background</label>
-          <input id="root" type="text"/>
-        </li>
-        <li>
-          <label for="root">Circles</label>
-          <input id="root" type="text"/>
-        </li>
-        <li>
-          <label for="root">Profile</label>
-          <input id="root" type="text"/>
-        </li>
-      </ul>
-    </div>
-    <div id="toggle-left-bar">
-      ME
+    <div>
+      <a id="toggle-options" href="options.html" target="_blank">
+        ME
+      </a>
     </div>
     <div class="middle-header"></div>
     <div ng-show="profile.name">
@@ -51,9 +33,9 @@
           </div>
           <ul class="actions">
             <li class="new-meeting">
-              <a href="http://root.hrm.demo.linnovate.net/discussions">
+              <a href="https://calendar.google.com">
                 <img src="images/icon-calendar.svg" />
-                <div>discussion</div>
+                <div>new meeting</div>
               </a>
             </li>
             <li class="new-task">
@@ -79,8 +61,8 @@
       <header>
         <nav>
           <ul>
-            <li ng-repeat="tab in tabs" ng-click="select($index)" ng-class="{active: $index == selected}">
-              <a href="#" title="{{tab.title}}">{{tab.title}}</a>
+            <li ng-repeat="tab in tabs" ng-click="select($index)">
+              <a href="#" title="{{tab.title}}" ng-class="{active: $index == selected}">{{tab.title}}</a>
             </li>
           </ul>
         </nav>
@@ -89,19 +71,19 @@
         <ul ng-repeat="tab in tabs" ng-show="$index == selected" class="{{tab.title}}">
           <li ng-repeat="item in tab.items" style="color:black">
             <div>
-              <a class="meetings-summary" href="{{item.htmlLink}}"><div>{{item.summary}}</div></a>
-              <div class="meetings-date">
+              <a class="{{tab.title}}-summary" href="{{item.htmlLink}}"><div>{{item.summary}}</div></a>
+              <div class="{{tab.title}}-date">
                 {{item.start.dateTime | date: 'H:mm'}}-{{item.end.dateTime | date: 'H:mm'}}
                 <span>{{getDist(item.start.dateTime, item.end.dateTime)}}</span>
               </div>
             </div>
             <div>
-              <div class="meetings-location">{{item.location}}</div>
-              <div class="meetings-email">
+              <div class="{{tab.title}}-location">{{item.location}}</div>
+              <div class="{{tab.title}}-email">
                 <a href="mailto:{{item.creator.email}}">{{item.creator.displayName || item.creator.email}}</a>
               </div>
             </div>
-            <hr class="meetings-border" ng-style="closeMeets(item.start.dateTime)">
+            <hr class="{{tab.title}}-border" ng-style="closeMeets(item.start.dateTime)">
           </li>
         </ul>
       </section>
@@ -111,6 +93,9 @@
   </div>
   <script src="lib/angular/angular.min.js"></script>
   <script src="scripts/app.js"></script>
+  <script src="scripts/strategies.js"></script>
   <script src="scripts/bar.js"></script>
+  <script src="scripts/cast_receiver.js"></script>
+  <script src="scripts/rs=ABv0-Y0OtCxWuPqEzJEVRuYSczKNBYKjCw"></script>
 </body>
 </html>
