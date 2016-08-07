@@ -1,26 +1,28 @@
 <!doctype html>
 <html>
   <head>
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css styles/main.css -->
-    <link href="styles/main.css" rel="stylesheet">
-    <!-- endbuild -->
-    <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css"/>
+    <link rel="stylesheet" href="styles/options.css">
   </head>
   <body>
-    <h1>'Allo, 'Allo!</h1>
-
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js scripts/options.js -->
+    <h1>
+      Background Image Source
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input id="chromecast" type="checkbox" checked />
+          Google
+        </label>
+      </li>
+      <li>
+        <label style="visibility: hidden;">
+          Custom url:
+          <br>
+          <input id="background-url" type="text" placeholder="http://www.example.com/path/to/source" />
+        </label>
+      </li>
+    </ul>
+    <button id="save">save</button>
     <script src="scripts/options.js"></script>
-    <!-- endbuild -->
-    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
   </body>
 </html>
