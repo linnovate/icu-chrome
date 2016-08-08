@@ -10,7 +10,7 @@
 <body ng-app="app" ng-controller="icuCtrl">
   <div class="header">
     <div>
-      <a id="toggle-options" href="options.html" target="_blank">
+      <a id="toggle-options" href="options.html" target="_blank" title="ME options">
         ME
       </a>
     </div>
@@ -60,14 +60,14 @@
       <header>
         <nav>
           <ul>
-            <li ng-repeat="tab in tabs" ng-click="select($index)">
-              <a href="#" title="{{tab.title}}" ng-class="{active: $index == selected}">{{tab.title}}</a>
+            <li ng-repeat="(name, tab) in tabs" ng-click="select(name)">
+              <a href="#" title="{{name}}" ng-class="{active: name == selected}">{{name}}</a>
             </li>
           </ul>
         </nav>
       </header>
       <section>
-        <ul ng-repeat="tab in tabs" ng-show="$index == selected" class="{{tab.title}}">
+        <ul ng-repeat="(name, tab) in tabs" ng-show="$index == selected" class="{{name}}">
           <li ng-repeat="item in tab.items" style="color:black">
             <div>
               <a class="{{tab.title}}-summary" href="{{item.htmlLink}}"><div>{{item.summary}}</div></a>

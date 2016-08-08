@@ -7,22 +7,48 @@
     <h1>
       Background Image Source
     </h1>
-    <ul>
-      <li>
-        <label>
-          <input id="chromecast" type="checkbox" checked />
-          Google
-        </label>
-      </li>
-      <li>
-        <label style="visibility: hidden;">
-          Custom url:
-          <br>
-          <input id="background-url" type="text" placeholder="http://www.example.com/path/to/source" />
-        </label>
-      </li>
-    </ul>
+    <label>
+      Google
+      <label>
+        <input id="chromecast" type="checkbox" />
+        Chromecast
+      </label>
+    </label>
+    <label style="visibility: hidden;">
+      Custom
+      <label>
+        <span>url: </span>
+        <input id="background" type="text" placeholder="http://www.example.com/path/to/source" />
+      </label>
+      <label>
+        <span>user: </span>
+        <input id="user" type="text" />
+      </label>
+      <label>
+        <span>password: </span>
+        <input id="password" type="password" />
+      </label>
+    </label>
+    <button id="reset">reset</button>
     <button id="save">save</button>
+    <br>
+    <div id="block1">
+      <select id="provider">
+        <option>Google</option>
+        <option>Facebook</option>
+        <option>twitter</option>
+        <option>custom</option>
+      </select>
+      <div style="display: inline-block;">
+        <input id="selected-services" type="text" />
+        <select id="services" multiple style="display: none;">
+          <option value="background">background</option>
+          <option value="profile">profile</option>
+          <option value="meetings">meetings</option>
+          <option value="projects">projects</option>
+        </select>
+      </div>
+    </div>
     <script src="scripts/options.js"></script>
   </body>
 </html>

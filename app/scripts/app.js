@@ -8,13 +8,19 @@ app.controller('icuCtrl', function ($scope, $http) {
 
   app.expandController($scope, $http)
 
-  $scope.tabs = ['meetings','tasks','project'].map(function(item, i){
+  $scope.tabs = {
+    meetings: {items: []},
+    tasks: {items: []},
+    project: {items: []}
+  }
+
+/*  $scope.tabs = ['meetings','tasks','project'].map(function(item, i){
     return {
       id: i,
       title: item,
       items: []
     }
-  });
+  });*/
 
 
   $scope.closeMeets = function(date) {
@@ -53,7 +59,7 @@ app.controller('icuCtrl', function ($scope, $http) {
   }
 
 
-  $scope.selected = 0;
+  $scope.selected = 'meetings';
 
 
   $scope.select= function(index) {
