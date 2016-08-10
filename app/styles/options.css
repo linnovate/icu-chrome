@@ -7,7 +7,7 @@ label {
 }
 label span {
   display: inline-block;
-  width: 70px;
+  width: 50px;
 }
 label > label {
   font-size: 12px;

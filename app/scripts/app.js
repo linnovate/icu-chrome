@@ -4,24 +4,66 @@ var app = angular.module("app", []);
 
 app.controller('icuCtrl', function ($scope, $http) {
 
-  $scope.profile = {};
+  app.expandController($scope, $http);
 
-  app.expandController($scope, $http)
+  $scope.locale = {};
 
-  $scope.tabs = {
-    meetings: {items: []},
-    tasks: {items: []},
-    project: {items: []}
-  }
+  chrome.storage.sync.get({
+    lang: 'en'
+  }, function(data) {
+    $scope.lang = data.lang;
+    $http({
+      method: 'GET',
+      url: 'scripts/' + data.lang + '.json'
+    }).then(function(res) {
+      for (var n in res.data) {
+        $scope.locale[n] = res.data[n];
+      }
 
-/*  $scope.tabs = ['meetings','tasks','project'].map(function(item, i){
-    return {
-      id: i,
-      title: item,
-      items: []
+      $scope.tabs = {
+        meetings: {
+          title: $scope.locale.meetings,
+          items: []
+        },
+        tasks: {
+          title: $scope.locale.tasks,
+          items: []
+        },
+        projects: {
+          title: $scope.locale.projects,
+          items: []
+        }
+      }
+    })
+  })
+
+  chrome.storage.sync.get({
+    providers: {
+      background: {
+        name: 'google'
+      },
+      meetings: {
+        name: 'google'
+      },
+      profile: {
+        name: 'google'
+      },
+      projects: {
+        name: 'google'
+      }
     }
-  });*/
-
+  }, function(data) {
+    var google = [];
+    for(var n in data.providers) {
+      let p = data.providers[n];
+      if(p.name == 'google') {
+        google.push(n);
+      } else {
+        $scope.services[n][p.name](p);
+      }
+    }
+    if(google.length) $scope.googleAuth(google);
+  })
 
   $scope.closeMeets = function(date) {
 
@@ -71,12 +113,14 @@ app.controller('icuCtrl', function ($scope, $http) {
     var dist = Math.round((new Date(a).getTime() - new Date().getTime()) / 60000);
     if(dist < 0 ) {
       if(Math.round((new Date(b).getTime() - new Date().getTime()) / 60000) > 0) {
-        return ' now!';
+        return ' ' + $scope.locale.now;
       } else {
-        return ' passed'
+        return ' ' + $scope.locale.passed;
       }
     } else if(dist <= 10) {
-      return ' in ' + dist + ' minutes';
+      return ' ' + $scope.locale['in N minutes'].replace('N', dist);
+    } else {
+      return '';
     }
   }
 

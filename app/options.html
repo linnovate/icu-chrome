@@ -3,52 +3,34 @@
   <head>
     <link rel="stylesheet" href="styles/options.css">
   </head>
-  <body>
-    <h1>
-      Background Image Source
-    </h1>
-    <label>
-      Google
-      <label>
-        <input id="chromecast" type="checkbox" />
-        Chromecast
-      </label>
-    </label>
-    <label style="visibility: hidden;">
-      Custom
-      <label>
-        <span>url: </span>
-        <input id="background" type="text" placeholder="http://www.example.com/path/to/source" />
-      </label>
-      <label>
-        <span>user: </span>
-        <input id="user" type="text" />
-      </label>
-      <label>
-        <span>password: </span>
-        <input id="password" type="password" />
-      </label>
-    </label>
-    <button id="reset">reset</button>
-    <button id="save">save</button>
-    <br>
-    <div id="block1">
-      <select id="provider">
-        <option>Google</option>
-        <option>Facebook</option>
-        <option>twitter</option>
-        <option>custom</option>
+  <body ng-app="app" ng-controller="optionsCtrl">
+    <div ng-repeat="(name, service) in services">
+      <h1>{{name}}</h1>
+      <select ng-model="choosen[name].name">
+        <option ng-repeat="(name, option) in service" value="{{name}}">{{name}}</option>
       </select>
-      <div style="display: inline-block;">
-        <input id="selected-services" type="text" />
-        <select id="services" multiple style="display: none;">
-          <option value="background">background</option>
-          <option value="profile">profile</option>
-          <option value="meetings">meetings</option>
-          <option value="projects">projects</option>
-        </select>
+      <div ng-show="choosen[name].name == 'custom'">
+        <label>
+          <span>url: </span>
+          <input ng-model="choosen[name].url" type="text" />
+        </label>
+        <label>
+          <span>email: </span>
+          <input ng-model="choosen[name].email" type="text" />
+        </label>
+        <label>
+          <span>pwd: </span>
+          <input ng-model="choosen[name].password" type="password" />
+        </label>
       </div>
     </div>
+    <button ng-click="reset()">reset</button>
+    <button ng-click="save()">save</button>
+    <select ng-model="lang">
+      <option ng-repeat="lang in langs" value="{{lang}}">{{lang}}</option>
+    </select>
+    <script src="lib/angular/angular.min.js"></script>
     <script src="scripts/options.js"></script>
+    <script src="scripts/services.js"></script>
   </body>
 </html>

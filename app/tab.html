@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="app" ng-controller="icuCtrl" lang="{{lang}}" dir="{{locale.direction}}">
 <head>
   <meta charset="UTF-8">
-  <title>New Tab</title>
+  <title>{{locale.title}}</title>
   <link rel="stylesheet" type="text/css" href="styles/header.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
   <link rel="stylesheet" type="text/css" href="lib/open-sans/css/open-sans.css" />
 </head>
-<body ng-app="app" ng-controller="icuCtrl">
+<body>
   <div class="header">
     <div>
       <a id="toggle-options" href="options.html" target="_blank" title="ME options">
-        ME
+        {{locale.menu}}
       </a>
     </div>
     <div class="middle-header"></div>
@@ -25,10 +25,10 @@
       <div class="opening">
         <div ng-show="profile.name">
           <div class="name">
-            Hi, {{profile.name}}
+            {{locale.greeting}}, {{profile.name}}
           </div>
           <div class="sentence">
-            What do you want to do now ?
+            {{locale.offering}}
           </div>
           <ul class="actions">
             <li class="new-meeting">
@@ -61,37 +61,42 @@
         <nav>
           <ul>
             <li ng-repeat="(name, tab) in tabs" ng-click="select(name)">
-              <a href="#" title="{{name}}" ng-class="{active: name == selected}">{{name}}</a>
+              <a href="#" title="{{tab.title}}" ng-class="{active: name == selected}">{{tab.title}}</a>
             </li>
           </ul>
         </nav>
       </header>
       <section>
-        <ul ng-repeat="(name, tab) in tabs" ng-show="$index == selected" class="{{name}}">
+        <ul ng-repeat="(name, tab) in tabs" ng-show="name == selected" class="{{name}}">
           <li ng-repeat="item in tab.items" style="color:black">
             <div>
-              <a class="{{tab.title}}-summary" href="{{item.htmlLink}}"><div>{{item.summary}}</div></a>
-              <div class="{{tab.title}}-date">
+              <a class="{{name}}-summary" href="{{item.htmlLink}}">{{item.summary}}</a>
+              <div class="partition"></div>
+              <div class="{{name}}-date">
                 {{item.start.dateTime | date: 'H:mm'}}-{{item.end.dateTime | date: 'H:mm'}}
                 <span>{{getDist(item.start.dateTime, item.end.dateTime)}}</span>
               </div>
             </div>
             <div>
-              <div class="{{tab.title}}-location">{{item.location}}</div>
-              <div class="{{tab.title}}-email">
+              <div class="{{name}}-location">{{item.location}}</div>
+              <div class="partition"></div>
+              <div class="{{name}}-email">
                 <a href="mailto:{{item.creator.email}}">{{item.creator.displayName || item.creator.email}}</a>
               </div>
             </div>
-            <hr class="{{tab.title}}-border" ng-style="closeMeets(item.start.dateTime)">
+            <hr class="{{name}}-border" ng-style="closeMeets(item.start.dateTime)">
           </li>
         </ul>
       </section>
     </div>
-    <div class="">
+    <div class="apps">
+      <a href="http://hi.hrm.demo.linnovate.net" target="_blank">
+        <img src="images/rocket.ico" />
+      </a>
     </div>
   </div>
   <script src="lib/angular/angular.min.js"></script>
   <script src="scripts/app.js"></script>
-  <script src="scripts/strategies.js"></script>
+  <script src="scripts/services.js"></script>
 </body>
 </html>

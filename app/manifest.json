@@ -17,7 +17,7 @@
     "tabs",
     "identity",
     "storage",
-    "https://clients3.google.com/*"
+    "<all_urls>"
   ],
   "oauth2": {
     "client_id": "473899478840-1nf3bmmc4hdlbtto3ns7nect1v81bsi9.apps.googleusercontent.com",

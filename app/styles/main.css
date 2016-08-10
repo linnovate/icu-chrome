@@ -1,4 +1,5 @@
 body {
+  opacity: 0;
   color: white;
   font-family: 'Open Sans light';
   margin: 0;
@@ -6,7 +7,10 @@ body {
   background-position: center;
   background-size: cover;
   background-image: url("../images/whitebackground.jpg");
-  transition: background-image 1s ease-in-out;
+  /*transition: opacity 1s ease-in-out, background-image 1s ease-in-out;*/
+  transition-property: background-image, opacity;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
 }
 .main {
   display: flex;
@@ -19,6 +23,7 @@ body {
   flex-direction: column;
 }
 .bulletin  {
+  background-color: rgba(255, 255, 255, 0.8);
   width: 34%;
 }
 .main .opening {
@@ -35,7 +40,7 @@ body {
 .main .notifications {
   width: 100%;
   height: 10%;
-  background-color: rgba(0, 0, 0, 0.84);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .main .notifications .notif-icon {
   background: url("../images/notifications.png") center no-repeat;
@@ -48,9 +53,6 @@ body {
 }
 .main .sentence {
   font-size: 42px;
-}
-.bulletin {
-  background-color: white;
 }
 .main .actions {
   display: flex;
@@ -122,15 +124,8 @@ section li > div {
   margin: 0px 30px;
   align-items: center;
 }
-.meetings > li > div > div {
-  min-width: 150px;
-  flex: 1;
-}
-.meetings > li > div > div:nth-child(1) {
-  text-align: left;
-}
-.meetings > li > div > div:nth-child(2) {
-  text-align: right;
+.partition {
+  flex-grow: 1;
 }
 .meetings-summary {
   text-decoration: blink;
@@ -149,4 +144,13 @@ section li > div {
   border: none;
   border-bottom: 3.5px solid;
   margin: 20px 0px 0px 0px;
+}
+.apps {
+  width: 6%;
+}
+.apps * {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 10px auto;
 }
