@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="icuCtrl" lang="{{lang}}" dir="{{locale.direction}}">
+<html ng-app="app" ng-controller="icuCtrl" lang="{{lang}}" dir="{{locale.ltr}}">
 <head>
   <meta charset="UTF-8">
-  <title>{{locale.title}}</title>
+  <title>{{locale['new tab'] | camelcase}}</title>
   <link rel="stylesheet" type="text/css" href="styles/header.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
   <link rel="stylesheet" type="text/css" href="lib/open-sans/css/open-sans.css" />
@@ -11,7 +11,7 @@
   <div class="header">
     <div>
       <a id="toggle-options" href="options.html" target="_blank" title="ME options">
-        {{locale.menu}}
+        {{locale.me | uppercase}}
       </a>
     </div>
     <div class="middle-header"></div>
@@ -25,10 +25,10 @@
       <div class="opening">
         <div ng-show="profile.name">
           <div class="name">
-            {{locale.greeting}}, {{profile.name}}
+            {{locale.hi | caps}}, {{profile.name}}
           </div>
           <div class="sentence">
-            {{locale.offering}}
+            {{locale['what do you want to do now ?'] | caps}}
           </div>
           <ul class="actions">
             <li class="new-meeting">
@@ -67,24 +67,62 @@
         </nav>
       </header>
       <section>
-        <ul ng-repeat="(name, tab) in tabs" ng-show="name == selected" class="{{name}}">
-          <li ng-repeat="item in tab.items" style="color:black">
+        <ul ng-show="selected == 'meetings'" class="meetings">
+          <li ng-repeat="item in tabs.meetings.items" style="color:black">
             <div>
-              <a class="{{name}}-summary" href="{{item.htmlLink}}">{{item.summary}}</a>
+              <a class="meetings-summary" href="{{item.htmlLink}}">{{item.summary}}</a>
               <div class="partition"></div>
-              <div class="{{name}}-date">
+              <div class="meetings-date">
                 {{item.start.dateTime | date: 'H:mm'}}-{{item.end.dateTime | date: 'H:mm'}}
                 <span>{{getDist(item.start.dateTime, item.end.dateTime)}}</span>
               </div>
             </div>
             <div>
-              <div class="{{name}}-location">{{item.location}}</div>
+              <div class="meetings-location">{{item.location}}</div>
               <div class="partition"></div>
-              <div class="{{name}}-email">
+              <div class="meetings-email">
                 <a href="mailto:{{item.creator.email}}">{{item.creator.displayName || item.creator.email}}</a>
               </div>
             </div>
-            <hr class="{{name}}-border" ng-style="closeMeets(item.start.dateTime)">
+            <hr class="meetings-border" ng-style="closeMeets(item.start.dateTime)">
+          </li>
+        </ul>
+        <ul ng-show="selected == 'tasks'" class="tasks">
+          <li ng-repeat="item in tabs.tasks.items" style="color:black">
+            <div>
+              <a class="tasks-summary" href="{{choosen.projects.url}}/tasks/all/{{item.id}}/activities" target="_blank">{{item.title}}</a>
+              <div class="partition"></div>
+              <div class="tasks-date">
+                {{item.updated | date: 'H:mm dd/MM/yy'}}
+              </div>
+            </div>
+            <div>
+              <div class="tasks-location"></div>
+              <div class="partition"></div>
+              <div class="tasks-email">
+                <a href="mailto:{{users[item.creator].email}}">{{users[item.creator].name || users[item.creator].email}}</a>
+              </div>
+            </div>
+            <hr class="tasks-border" style="color: #{{item.color}};">
+          </li>
+        </ul>
+        <ul ng-show="selected == 'projects'" class="projects">
+          <li ng-repeat="item in tabs.projects.items" style="color:black">
+            <div>
+              <a class="projects-summary" href="{{choosen.projects.url}}/projects/all/{{item.id}}/activities" target="_blank">{{item.title}}</a>
+              <div class="partition"></div>
+              <div class="projects-date">
+                {{item.updated | date: 'H:mm dd/MM/yy'}}
+              </div>
+            </div>
+            <div>
+              <div class="projects-location"></div>
+              <div class="partition"></div>
+              <div class="projects-email">
+                <a href="mailto:{{users[item.creator].email}}">{{users[item.creator].name || users[item.creator].email}}</a>
+              </div>
+            </div>
+            <hr class="projects-border" style="color: #{{item.color}};">
           </li>
         </ul>
       </section>
@@ -96,6 +134,8 @@
     </div>
   </div>
   <script src="lib/angular/angular.min.js"></script>
+  <script src="scripts/locale.js"></script>
+  <script src="scripts/defaults.js"></script>
   <script src="scripts/app.js"></script>
   <script src="scripts/services.js"></script>
 </body>

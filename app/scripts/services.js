@@ -13,8 +13,6 @@ app.expandController = function($scope, $http) {
           var match = res.data.match(/JSON\.parse\('.+'\)(?=\)\.)/)[0];
           var urls = eval(match);
           var index = Math.round(Math.random() * (urls[0].length - 1));
-          console.log(index)
-          console.log(urls)
           var url = urls[0][index][0];
           document.body.style.backgroundImage = 'url("' + url + '")';
           document.body.style.opacity = 'initial';
@@ -50,7 +48,7 @@ app.expandController = function($scope, $http) {
               month: new Date().getMonth()
             }
           }).then(function(res) {
-            console.log(res.data)
+            console.log('custom images:', res.data)
             for(var n in res.data) {
               let imgDate = new Date(res.data[n].forDate).setHours(0,0,0,0);
               let today = new Date().setHours(0,0,0,0);
@@ -115,7 +113,7 @@ app.expandController = function($scope, $http) {
             'Authorization': 'Bearer ' + token
           }
         }).then(function(res) {
-          console.log(res.data.items)
+          console.log('google calendar events:', res.data.items)
           $scope.tabs.meetings.items = res.data.items;
         })
       },
@@ -147,6 +145,37 @@ app.expandController = function($scope, $http) {
           }
         }).then(function(res) {
 
+          var token = res.data.token;
+          $scope.users = {};
+          var usersSource = {
+            projects: false,
+            tasks: false
+          };
+
+          var getUsers = function() {
+            if(!usersSource.projects || !usersSource.tasks) return;
+
+            // get creators details
+            for (var n in $scope.users) {
+              $http({
+                method: 'GET',
+                url: opts.url + '/api/users/' + n,
+                headers: {
+                  'Authorization': 'Bearer ' + token
+                }
+              }).then(function(res) {
+                $scope.users[n] = res.data;
+                if(res.data.email == opts.email) {
+                  $scope.users[n].name = $scope.locale.me;
+                }
+              }).catch(function(res) {
+                console.log(res)
+              })
+            }
+            
+          }
+
+
           // get projects
           $http({
             method: 'GET',
@@ -157,14 +186,49 @@ app.expandController = function($scope, $http) {
               sort: 'created'
             },
             headers: {
-              'Authorization': 'Bearer ' + res.data.token
+              'Authorization': 'Bearer ' + token
             }
           }).then(function(res) {
-            console.log(res);
-            return;
+            console.log('custom projects:', res.data.content);
+            $scope.tabs.projects.items = res.data.content;
+
+            res.data.content.forEach(function(p) {
+              $scope.users[p.creator] = {};
+            });
+            usersSource.projects = true;
+            getUsers();
+
           }).catch(function(res) {
             console.log(res)
           })
+
+          // get tasks
+          $http({
+            method: 'GET',
+            url: opts.url + '/api/tasks',
+            params: {
+              start: 0,
+              limit: 0,
+              sort: 'created'
+            },
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+          }).then(function(res) {
+            console.log('custom tasks:',res.data.content);
+            $scope.tabs.tasks.items = res.data.content;
+
+            res.data.content.forEach(function(t) {
+              $scope.users[t.creator] = {};
+            });
+            usersSource.tasks = true;
+            getUsers();
+
+          }).catch(function(res) {
+            console.log(res)
+          })
+
+
         }).catch(function(res) {
           console.log(res)
         })
@@ -192,7 +256,6 @@ app.expandController = function($scope, $http) {
         token: token
       })
       for(var n in services) {
-        console.log(services[n])
         $scope.services[services[n]].google(token);
       }
     })

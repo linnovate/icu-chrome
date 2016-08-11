@@ -8,51 +8,10 @@ app.controller('icuCtrl', function ($scope, $http) {
 
   $scope.locale = {};
 
-  chrome.storage.sync.get({
-    lang: 'en'
-  }, function(data) {
+
+  chrome.storage.sync.get(defaults, function(data) {
     $scope.lang = data.lang;
-    $http({
-      method: 'GET',
-      url: 'scripts/' + data.lang + '.json'
-    }).then(function(res) {
-      for (var n in res.data) {
-        $scope.locale[n] = res.data[n];
-      }
-
-      $scope.tabs = {
-        meetings: {
-          title: $scope.locale.meetings,
-          items: []
-        },
-        tasks: {
-          title: $scope.locale.tasks,
-          items: []
-        },
-        projects: {
-          title: $scope.locale.projects,
-          items: []
-        }
-      }
-    })
-  })
-
-  chrome.storage.sync.get({
-    providers: {
-      background: {
-        name: 'google'
-      },
-      meetings: {
-        name: 'google'
-      },
-      profile: {
-        name: 'google'
-      },
-      projects: {
-        name: 'google'
-      }
-    }
-  }, function(data) {
+    $scope.choosen = data.providers;
     var google = [];
     for(var n in data.providers) {
       let p = data.providers[n];
@@ -63,6 +22,32 @@ app.controller('icuCtrl', function ($scope, $http) {
       }
     }
     if(google.length) $scope.googleAuth(google);
+
+    if (data.lang == 'he') {
+      $scope.locale = locale;
+    } else {
+      for (var n in locale) {
+        $scope.locale[n] = n;
+      }
+    }
+
+    $scope.tabs = {
+      meetings: {
+        title: $scope.locale.meetings,
+        items: []
+      },
+      tasks: {
+        title: $scope.locale.tasks,
+        items: []
+      },
+      projects: {
+        title: $scope.locale.projects,
+        items: []
+      }
+    }
+
+    $scope.$apply();
+
   })
 
   $scope.closeMeets = function(date) {
@@ -124,4 +109,26 @@ app.controller('icuCtrl', function ($scope, $http) {
     }
   }
 
+});
+
+
+
+
+app.filter('caps', function() {
+  return function(txt) {
+    if(!txt) return;
+    return txt.replace(/^([a-z]{1})/, function(match, p1) {
+      return p1.toUpperCase();
+    });
+  }
+});
+
+
+app.filter('camelcase', function() {
+  return function(txt) {
+    if(!txt) return;
+    return txt.replace(/\b[a-z]/g, function(match) {
+      return match.toUpperCase();
+    });
+  }
 });

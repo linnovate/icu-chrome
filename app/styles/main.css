@@ -119,28 +119,28 @@ section li > div {
   font-weight: bold;
   font-size: 18px;
 }
-.meetings > li > div {
+.partition {
+  flex-grow: 1;
+}
+.meetings > li > div, .projects > li > div, .tasks > li > div{
   display: flex;
   margin: 0px 30px;
   align-items: center;
 }
-.partition {
-  flex-grow: 1;
-}
-.meetings-summary {
+.meetings-summary, .projects-summary, .tasks-summary {
   text-decoration: blink;
   color: black;
   font-weight: bold;
   font-size: 18px;
 }
-.meetings-location {
+.meetings-location, .projects-location, .tasks-location {
   font-size: 16px;
   color: grey;
 }
-.meetings-date {
+.meetings-date, .projects-date, .tasks-date {
   font-size: 14px;
 }
-.meetings-border {
+.meetings-border, .projects-border, .tasks-border {
   border: none;
   border-bottom: 3.5px solid;
   margin: 20px 0px 0px 0px;
