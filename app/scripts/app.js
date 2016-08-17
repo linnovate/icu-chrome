@@ -4,7 +4,8 @@ var app = angular.module("app", []);
 
 app.controller('icuCtrl', function ($scope, $http) {
 
-  app.expandController($scope, $http);
+  app.services($scope, $http);
+  app.apps($scope);
 
   $scope.locale = {};
 
@@ -45,6 +46,13 @@ app.controller('icuCtrl', function ($scope, $http) {
         items: []
       }
     }
+
+    for (var n in $scope.apps) {
+      if(!data.apps[n]) {
+        delete $scope.apps[n]
+      }
+    }
+
 
     $scope.$apply();
 

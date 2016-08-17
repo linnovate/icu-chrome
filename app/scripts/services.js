@@ -1,6 +1,6 @@
 'use strict';
 
-app.expandController = function($scope, $http) {
+app.services = function($scope, $http) {
 
   $scope.services = {
 
@@ -14,7 +14,7 @@ app.expandController = function($scope, $http) {
           var urls = eval(match);
           var index = Math.round(Math.random() * (urls[0].length - 1));
           var url = urls[0][index][0];
-          document.body.style.background = 'url("' + url + '") 0% 0% / cover rgba(0,0,0,.3)';
+          document.body.style.background = 'url("' + url + '") 0% 0% / cover rgba(128,128,128,.5)';
           document.body.style.opacity = 'initial';
         }).catch(function(res) {
           $scope.services.background.local()

@@ -26,18 +26,9 @@
       </div>
     </div>
     <h1>applications</h1>
-    <h2>Google</h2>
     <ul>
-      <li ng-repeat="(name, app) in apps.google">
+      <li ng-repeat="(name, app) in apps">
         <input ng-model="selected.apps[name]" type="checkbox" /> {{name}}
-      </li>
-    </ul>
-    <h2>Custom</h2>
-    <ul>
-      <li ng-repeat="(name, app) in apps.custom">
-        <input ng-model="selected.apps[name]" type="checkbox" /> {{name}}
-        <br>
-        link: <input type="text" />
       </li>
     </ul>
     <label>
@@ -50,8 +41,8 @@
     <button ng-click="reset()">reset</button>
     <script src="lib/angular/angular.min.js"></script>
     <script src="config/defaults.js"></script>
-    <script src="config/applications.js"></script>
     <script src="scripts/options.js"></script>
     <script src="scripts/services.js"></script>
+    <script src="scripts/apps.js"></script>
   </body>
 </html>

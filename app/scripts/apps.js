@@ -1,5 +1,7 @@
-apps = {
-  google: {
+'use strict';
+
+app.apps = function($scope) {
+  $scope.apps = {
     gmail: {
       class: 'google gmail',
       link: 'https://mail.google.com/'
@@ -15,16 +17,19 @@ apps = {
     drive: {
       class: 'google drive',
       link: 'https://drive.google.com/'
-    }/*,
+    },
+    facebook: {
+      class: 'facebook',
+      link: 'https://www.facebook.com/'
+    },
+    twitter: {
+      class: 'twitter',
+      link: 'https://twitter.com/'
+    }
+    /*,
     youtube: {
       class: 'google youtube',
       link: 'https://www.youtube.com/'
     }*/
-  },
-
-  custom: {
-    chat: {
-      class: 'rocket',
-    }
   }
 }

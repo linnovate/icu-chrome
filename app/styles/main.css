@@ -84,7 +84,7 @@ body {
   padding: 0 35px;
 }
 .bulletin header{
-  border-bottom: 1px solid #E1E1E1;
+  border-bottom: 1.5px solid #cccccc;
 }
 header ul > li {
   display: inline-block;
@@ -112,7 +112,7 @@ section ul {
 section ul > li {
   display: block;
   margin-top: 25px;
-  border-bottom: 1px solid #E1E1E1;
+  border-bottom: 1px solid #cccccc;
 }
 section li > div {
   font-size: 14px;

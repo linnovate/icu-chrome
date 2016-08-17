@@ -4,9 +4,8 @@ var app = angular.module("app", []);
 
 app.controller('optionsCtrl', function($scope, $http) {
 
-  app.expandController($scope, $http);
-
-  $scope.apps = apps;
+  app.services($scope, $http);
+  app.apps($scope);
 
   ($scope.get = function() {
     chrome.storage.sync.get(defaults, function(data) {

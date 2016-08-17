@@ -26,3 +26,9 @@ a.google {
 .calendar {
   background-position: -5px -1617px; 
 }
+.facebook {
+  background: url('../images/facebook.ico') 0% 0% / cover;
+}
+.twitter {
+  background: url('../images/twitter.ico') 0% 0% / cover;
+}

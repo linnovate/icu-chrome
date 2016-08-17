@@ -129,7 +129,8 @@
       </section>
     </div>
     <div class="apps">
-      <a ng-repeat="app in selected.apps" href="{{}}"></a>
+      <a ng-repeat="(name, app) in apps" href="{{app.link}}" class="{{app.class}}">
+      </a>
 <!--       <a href="https://drive.google.com/" class="google drive"></a>
       <a href="https://www.youtube.com/" class="google youtube"></a>
       <a href="https://mail.google.com/" class="google gmail"></a>
@@ -142,5 +143,6 @@
   <script src="config/defaults.js"></script>
   <script src="scripts/app.js"></script>
   <script src="scripts/services.js"></script>
+  <script src="scripts/apps.js"></script>
 </body>
 </html>
