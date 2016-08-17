@@ -1,0 +1,28 @@
+.apps {
+  width: 6%;
+}
+.apps * {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 10px auto;
+}
+a.google {
+  background-image: url('../images/googleapps.png');
+  background-size: 180%;
+}
+.drive {
+  background-position: -5px -111px;
+}
+.youtube {
+  background-position: -5px -5px;
+}
+.gmail {
+  background-position: -5px -1343px;
+}
+.search {
+  background-position: -18px -166px;
+}
+.calendar {
+  background-position: -5px -1617px; 
+}

@@ -6,20 +6,18 @@ app.controller('optionsCtrl', function($scope, $http) {
 
   app.expandController($scope, $http);
 
-  $scope.langs = ['en', 'he'];
+  $scope.apps = apps;
 
   ($scope.get = function() {
     chrome.storage.sync.get(defaults, function(data) {
-      $scope.choosen = data.providers;
-      $scope.lang = data.lang;
+      $scope.selected = data;
       $scope.$apply();
     })
   })()
 
   $scope.save = function() {
-    chrome.storage.sync.set({
-      providers: $scope.choosen
-    }, function() {
+    console.log($scope.selected)
+    chrome.storage.sync.set($scope.selected, function() {
       $scope.get();
       if(!chrome.runtime.lastError) return;
       console.error(chrome.runtime.lastError)
@@ -27,7 +25,7 @@ app.controller('optionsCtrl', function($scope, $http) {
   }
 
   $scope.reset = function() {
-    chrome.storage.sync.remove('providers', function() {
+    chrome.storage.sync.set(defaults, function() {
       $scope.get();
       if(!chrome.runtime.lastError) return;
       console.error(chrome.runtime.lastError)

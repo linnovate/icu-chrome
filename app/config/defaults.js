@@ -1,5 +1,5 @@
 defaults = {
-  providers: {
+  services: {
     background: {
       name: "google"
     },
@@ -9,9 +9,10 @@ defaults = {
     profile: {
       name: "google"
     },
-    projects: {
+    "projects & tasks": {
       name: "google"
     }
   },
+  apps: {},
   lang: "en"
 }

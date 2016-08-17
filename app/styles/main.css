@@ -3,12 +3,9 @@ body {
   color: white;
   font-family: 'Open Sans light';
   margin: 0;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   background-image: url("../images/whitebackground.jpg");
-  /*transition: opacity 1s ease-in-out, background-image 1s ease-in-out;*/
-  transition-property: background-image, opacity;
+  background-blend-mode: multiply;
+  transition-property: background, opacity;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
 }
@@ -82,24 +79,29 @@ body {
   margin-top: 10px;
   font-size: 20px;
 }
+.bulletin nav ul {
+  margin: 0;
+  padding: 0 35px;
+}
 .bulletin header{
   border-bottom: 1px solid #E1E1E1;
 }
 header ul > li {
   display: inline-block;
-  font-size: 21px;
+  font-size: 25px;
 }
 .bulletin ul > li > a {
   display: block;
   color: #333;
-  font-family: 'Open Sans regular';
+  font-family: Open Sans regular;
   text-decoration: none;
-  padding: 5px 36px;
+  padding: 15px 36px;
+  margin-top: 20px;
 }
 .bulletin ul > li > a.active{
   border-bottom: 3px solid #F9A000;
   color: #F9A000;
-  font-family: 'Open Sans bold';
+  font-weight: bold;
 }
 section ul {
   overflow: auto;
@@ -109,7 +111,7 @@ section ul {
 }
 section ul > li {
   display: block;
-  margin-top: 20px;
+  margin-top: 25px;
   border-bottom: 1px solid #E1E1E1;
 }
 section li > div {
@@ -121,36 +123,41 @@ section li > div {
 }
 .partition {
   flex-grow: 1;
+  min-width: 10px;
 }
 .meetings > li > div, .projects > li > div, .tasks > li > div{
   display: flex;
-  margin: 0px 30px;
+  margin: 0px 35px;
   align-items: center;
 }
 .meetings-summary, .projects-summary, .tasks-summary {
   text-decoration: blink;
   color: black;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 22px;
 }
 .meetings-location, .projects-location, .tasks-location {
   font-size: 16px;
   color: grey;
 }
 .meetings-date, .projects-date, .tasks-date {
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
 }
 .meetings-border, .projects-border, .tasks-border {
   border: none;
-  border-bottom: 3.5px solid;
+  border-bottom: 4px solid;
   margin: 20px 0px 0px 0px;
 }
-.apps {
-  width: 6%;
+.meetings-attendees {
+  flex-shrink: 0;
 }
-.apps * {
-  display: block;
-  width: 40px;
-  height: 40px;
-  margin: 10px auto;
+.meetings-attendees * {
+  vertical-align: middle;
+  font-size: 15px;
+  font-weight: bold;
+}
+.attendees {
+  border-radius: 12.5px;
+  margin: 1px;
 }

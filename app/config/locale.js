@@ -3,7 +3,7 @@ locale = {
   "me": "אני",
   "ltr": "rtl",
   "meetings": "פגישות",
-  "now": "עכשיו !",
+  "now !": "עכשיו !",
   "passed": "עבר",
   "in N minutes": "בעוד N דקות",
   "tasks": "משימות",

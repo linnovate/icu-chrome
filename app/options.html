@@ -3,34 +3,54 @@
   <head>
     <link rel="stylesheet" href="styles/options.css">
   </head>
-  <body ng-app="app" ng-controller="optionsCtrl">
+  <body ng-app="app" ng-controller="optionsCtrl" ng-cloak>
+    <h1>services</h1>
     <div ng-repeat="(name, service) in services">
-      <h1>{{name}}</h1>
-      <select ng-model="choosen[name].name">
+      <h2>{{name}}</h2>
+      <select ng-model="selected.services[name].name">
         <option ng-repeat="(name, option) in service" value="{{name}}">{{name}}</option>
       </select>
-      <div ng-show="choosen[name].name == 'custom'">
+      <div ng-show="selected.services[name].name == 'custom'">
         <label>
           <span>url: </span>
-          <input ng-model="choosen[name].url" type="text" />
+          <input ng-model="selected.services[name].url" type="text" />
         </label>
         <label>
           <span>email: </span>
-          <input ng-model="choosen[name].email" type="text" />
+          <input ng-model="selected.services[name].email" type="text" />
         </label>
         <label>
           <span>pwd: </span>
-          <input ng-model="choosen[name].password" type="password" />
+          <input ng-model="selected.services[name].password" type="password" />
         </label>
       </div>
     </div>
-    <button ng-click="reset()">reset</button>
+    <h1>applications</h1>
+    <h2>Google</h2>
+    <ul>
+      <li ng-repeat="(name, app) in apps.google">
+        <input ng-model="selected.apps[name]" type="checkbox" /> {{name}}
+      </li>
+    </ul>
+    <h2>Custom</h2>
+    <ul>
+      <li ng-repeat="(name, app) in apps.custom">
+        <input ng-model="selected.apps[name]" type="checkbox" /> {{name}}
+        <br>
+        link: <input type="text" />
+      </li>
+    </ul>
+    <label>
+      language: 
+      <select ng-model="selected.lang">
+        <option ng-repeat="lang in ['en', 'he']" value="{{lang}}">{{lang}}</option>
+      </select>
+    </label>
     <button ng-click="save()">save</button>
-    <select ng-model="lang">
-      <option ng-repeat="lang in langs" value="{{lang}}">{{lang}}</option>
-    </select>
+    <button ng-click="reset()">reset</button>
     <script src="lib/angular/angular.min.js"></script>
     <script src="config/defaults.js"></script>
+    <script src="config/applications.js"></script>
     <script src="scripts/options.js"></script>
     <script src="scripts/services.js"></script>
   </body>

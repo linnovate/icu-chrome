@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="icuCtrl" lang="{{lang}}" dir="{{locale.ltr}}">
+<html ng-app="app" ng-controller="icuCtrl" lang="{{selected.lang}}" dir="{{locale.ltr}}" ng-cloak>
 <head>
   <meta charset="UTF-8">
   <title>{{locale['new tab'] | camelcase}}</title>
   <link rel="stylesheet" type="text/css" href="styles/header.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
+  <link rel="stylesheet" type="text/css" href="styles/apps.css" />
   <link rel="stylesheet" type="text/css" href="lib/open-sans/css/open-sans.css" />
 </head>
 <body>
   <div class="header">
     <div>
-      <a id="toggle-options" href="options.html" target="_blank" title="ME options">
+      <a id="toggle-options" href="options.html" title="ME options">
         {{locale.me | uppercase}}
       </a>
     </div>
@@ -60,37 +61,37 @@
       <header>
         <nav>
           <ul>
-            <li ng-repeat="(name, tab) in tabs" ng-click="select(name)">
-              <a href="#" title="{{tab.title}}" ng-class="{active: name == selected}">{{tab.title}}</a>
+            <li ng-repeat="(name, tab) in tabs" ng-click="activate(name)">
+              <a href="#" title="{{tab.title}}" ng-class="{active: name == active}">{{tab.title}}</a>
             </li>
           </ul>
         </nav>
       </header>
       <section>
-        <ul ng-show="selected == 'meetings'" class="meetings">
-          <li ng-repeat="item in tabs.meetings.items" style="color:black">
+        <ul ng-show="active == 'meetings'" class="meetings">
+          <li ng-repeat="item in tabs.meetings.items | filter:meetsDist" style="color:black">
             <div>
               <a class="meetings-summary" href="{{item.htmlLink}}">{{item.summary}}</a>
               <div class="partition"></div>
               <div class="meetings-date">
-                {{item.start.dateTime | date: 'H:mm'}}-{{item.end.dateTime | date: 'H:mm'}}
-                <span>{{getDist(item.start.dateTime, item.end.dateTime)}}</span>
+                {{item.start.dateTime | date: 'H:mm'}}-{{item.end.dateTime | date: 'H:mm'}}{{item.style.text}}
               </div>
             </div>
             <div>
               <div class="meetings-location">{{item.location}}</div>
               <div class="partition"></div>
-              <div class="meetings-email">
-                <a href="mailto:{{item.creator.email}}">{{item.creator.displayName || item.creator.email}}</a>
+              <div class="meetings-attendees">
+                <img ng-repeat="atd in item.attendees | limitTo : 3" class="attendees" title="{{atd.title || atd.displayName || atd.email}}" src="{{atd.photo || 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=25'}}" />
+                <span ng-show="item.attendees.length > 3">+{{item.attendees.length - 3}}</span>
               </div>
             </div>
-            <hr class="meetings-border" ng-style="closeMeets(item.start.dateTime)">
+            <hr class="meetings-border" ng-style="{ color: item.style.color, width: item.style.width }">
           </li>
         </ul>
-        <ul ng-show="selected == 'tasks'" class="tasks">
+        <ul ng-show="active == 'tasks'" class="tasks">
           <li ng-repeat="item in tabs.tasks.items" style="color:black">
             <div>
-              <a class="tasks-summary" href="{{choosen.projects.url}}/tasks/all/{{item.id}}/activities" target="_blank">{{item.title}}</a>
+              <a class="tasks-summary" href="{{choosen.projects.url}}/tasks/all/{{item.id}}/activities">{{item.title}}</a>
               <div class="partition"></div>
               <div class="tasks-date">
                 {{item.updated | date: 'H:mm dd/MM/yy'}}
@@ -106,10 +107,10 @@
             <hr class="tasks-border" style="color: #{{item.color}};">
           </li>
         </ul>
-        <ul ng-show="selected == 'projects'" class="projects">
+        <ul ng-show="active == 'projects'" class="projects">
           <li ng-repeat="item in tabs.projects.items" style="color:black">
             <div>
-              <a class="projects-summary" href="{{choosen.projects.url}}/projects/all/{{item.id}}/activities" target="_blank">{{item.title}}</a>
+              <a class="projects-summary" href="{{choosen.projects.url}}/projects/all/{{item.id}}/activities">{{item.title}}</a>
               <div class="partition"></div>
               <div class="projects-date">
                 {{item.updated | date: 'H:mm dd/MM/yy'}}
@@ -128,9 +129,12 @@
       </section>
     </div>
     <div class="apps">
-      <a href="http://hi.hrm.demo.linnovate.net" target="_blank">
-        <img src="images/rocket.ico" />
-      </a>
+      <a ng-repeat="app in selected.apps" href="{{}}"></a>
+<!--       <a href="https://drive.google.com/" class="google drive"></a>
+      <a href="https://www.youtube.com/" class="google youtube"></a>
+      <a href="https://mail.google.com/" class="google gmail"></a>
+      <a href="https://www.google.com/" class="google search"></a>
+      <a href="https://calendar.google.com/" class="google calendar"></a> -->
     </div>
   </div>
   <script src="lib/angular/angular.min.js"></script>

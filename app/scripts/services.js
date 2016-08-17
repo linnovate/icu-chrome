@@ -14,7 +14,7 @@ app.expandController = function($scope, $http) {
           var urls = eval(match);
           var index = Math.round(Math.random() * (urls[0].length - 1));
           var url = urls[0][index][0];
-          document.body.style.backgroundImage = 'url("' + url + '")';
+          document.body.style.background = 'url("' + url + '") 0% 0% / cover rgba(0,0,0,.3)';
           document.body.style.opacity = 'initial';
         }).catch(function(res) {
           $scope.services.background.local()
@@ -107,7 +107,7 @@ app.expandController = function($scope, $http) {
             singleEvents: true,
             showDeleted: false,
             orderBy: 'startTime',
-            maxResults: 100
+            maxResults: 7
           },
           headers: {
             'Authorization': 'Bearer ' + token
@@ -115,6 +115,58 @@ app.expandController = function($scope, $http) {
         }).then(function(res) {
           console.log('google calendar events:', res.data.items)
           $scope.tabs.meetings.items = res.data.items;
+          $scope.attendees = {};
+          for ( var i=0 ; i<res.data.items.length ; i++ ) {
+            if(!res.data.items[i].attendees) continue;
+            for ( var j=0; j<res.data.items[i].attendees.length; j++ ) {
+              if(res.data.items[i].attendees[j].self) {  // remove self from attendees array
+                res.data.items[i].attendees.splice(j,1);
+                j--;
+                continue;
+              }
+              let email = res.data.items[i].attendees[j].email;
+              $scope.attendees[email] = res.data.items[i].attendees[j];
+            }
+          }
+          console.log($scope.attendees)
+
+          Object.keys($scope.attendees).forEach(function(email) {
+            let attendee = $scope.attendees[email]
+            $http({
+              method: 'GET',
+              url: 'https://www.google.com/m8/feeds/contacts/default/full',
+              headers: {
+                'Authorization': 'Bearer ' + token,
+                'GData-Version': '3.0'
+              },
+              params: {
+                alt: 'json',
+                q: email,
+                'max-results': 1000
+              }
+            }).then(function(res) {
+              if(!res.data.feed.entry) return;
+              attendee.title = res.data.feed.entry[0].title.$t;
+              $http({
+                method: 'GET',
+                url: res.data.feed.entry[0].link[0].href,
+                responseType: 'arraybuffer',
+                headers: {
+                  'Authorization': 'Bearer ' + token
+                },
+                params: {
+                  sz: 25
+                }
+              }).then(function(res) {
+                attendee.photo = parsePhoto(res.data);
+              })
+            }).catch(function(res) {
+              console.log(res)
+            })
+
+          })
+
+
         })
       },
 
@@ -125,7 +177,7 @@ app.expandController = function($scope, $http) {
 
 
 
-    projects: {
+    "projects & tasks": {
       google: function() {
         console.log('executed projects google function')
       },
@@ -262,3 +314,21 @@ app.expandController = function($scope, $http) {
   }
 
 };
+
+
+
+
+
+
+
+
+
+function parsePhoto(arrayBuffer) {
+  var byteArray = new Uint8Array(arrayBuffer);
+  var txt = '';
+  for (var i=0; i < byteArray.byteLength; i++) {
+    txt += String.fromCharCode(byteArray[i])
+  }
+  var result = 'data:image/jpeg;base64,' + btoa(txt);
+  return result;
+}

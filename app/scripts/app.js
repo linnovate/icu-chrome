@@ -10,15 +10,15 @@ app.controller('icuCtrl', function ($scope, $http) {
 
 
   chrome.storage.sync.get(defaults, function(data) {
-    $scope.lang = data.lang;
-    $scope.choosen = data.providers;
+    console.log(data)
+    $scope.selected = data;
     var google = [];
-    for(var n in data.providers) {
-      let p = data.providers[n];
-      if(p.name == 'google') {
+    for(var n in data.services) {
+      let s = data.services[n];
+      if(s.name == 'google') {
         google.push(n);
       } else {
-        $scope.services[n][p.name](p);
+        $scope.services[n][s.name](s);
       }
     }
     if(google.length) $scope.googleAuth(google);
@@ -50,63 +50,53 @@ app.controller('icuCtrl', function ($scope, $http) {
 
   })
 
-  $scope.closeMeets = function(date) {
+  $scope.active = 'meetings';
 
-    var distance = new Date(date).getTime() - new Date().getTime();
-    distance = Math.ceil(distance / (60*60*1000));
-
-    if(distance < 0) distance = 0;
-
-    var style = {};
-    switch (distance) {
-      case 0:
-      case 1:
-        style = {
-          color: '#f06f1b',
-          width: '80%'
-        };
-      break;
-      case 2:
-        style = {
-          color: '#00bfec',
-          width: '30%'
-        }
-      break;
-      default:
-        style = {
-          color: '#8fc53d',
-          width: '5%'
-        }
-      break;
-    };
-
-    style['border-bottom-color'] = style.color;
-    delete style.color;
-    return style;
-  }
-
-
-  $scope.selected = 'meetings';
-
-
-  $scope.select= function(index) {
-    $scope.selected = index; 
+  $scope.activate = function(name) {
+    $scope.active = name;
   };
 
+  $scope.meetsDist = function(item) {
+    let distance = new Date(item.start.dateTime).getTime() - Date.now();
+    distance = Math.round(distance / 60000)
+    if(distance < 0) {
 
-  $scope.getDist = function(a, b) {
-    var dist = Math.round((new Date(a).getTime() - new Date().getTime()) / 60000);
-    if(dist < 0 ) {
-      if(Math.round((new Date(b).getTime() - new Date().getTime()) / 60000) > 0) {
-        return ' ' + $scope.locale.now;
-      } else {
-        return ' ' + $scope.locale.passed;
+      item.style = {
+        color: '#f06f1b',
+        width: '80%'
       }
-    } else if(dist <= 10) {
-      return ' ' + $scope.locale['in N minutes'].replace('N', dist);
+      if(new Date(item.end.dateTime).getTime < Date.now()) {
+        item.style.text = ' '+$scope.locale.passed;
+      } else {
+        item.style.text = ' '+$scope.locale['now !'];
+      }
+
+    } else if (distance < 10) {
+      item.style = {
+        color: '#f06f1b',
+        width: '80%',
+        text: ' '+$scope.locale['in N minutes'].replace('N', distance)
+      }
+    } else if (distance < 60) {
+      item.style = {
+        color: '#00bfec',
+        width: '30%',
+        text: ''
+      }
+    } else if (distance < 120) {
+      item.style = {
+        color: '#00bfec',
+        width: '30%',
+        text: ''
+      }
     } else {
-      return '';
+      item.style = {
+        color: '#8fc53d',
+        width: '5%',
+        text: ''
+      }
     }
+    return item;
   }
 
 });

@@ -23,9 +23,9 @@
     /*"client_id": "473899478840-lirf1aiss08r3cqrpglgmalu82t2bm5k.apps.googleusercontent.com",*/
     "client_id": "473899478840-g913bbp5p8jcso3qa30cbtac10j21t08.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/tasks.readonly",
       "https://www.googleapis.com/auth/calendar.readonly",
-      "https://www.googleapis.com/auth/userinfo.profile"
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/contacts.readonly"
     ]
   }
 }

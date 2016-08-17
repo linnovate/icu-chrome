@@ -23,3 +23,6 @@ input[type="text"], input[type="password"] {
   position: absolute;
   overflow: hidden;
 }
+ul {
+  list-style-type: none;
+}
