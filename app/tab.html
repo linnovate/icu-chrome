@@ -129,13 +129,8 @@
       </section>
     </div>
     <div class="apps">
-      <a ng-repeat="(name, app) in apps" href="{{app.link}}" class="{{app.class}}">
+      <a ng-repeat="(name, app) in apps" href="{{app.link}}" id="{{app.class}}" draggable="true">
       </a>
-<!--       <a href="https://drive.google.com/" class="google drive"></a>
-      <a href="https://www.youtube.com/" class="google youtube"></a>
-      <a href="https://mail.google.com/" class="google gmail"></a>
-      <a href="https://www.google.com/" class="google search"></a>
-      <a href="https://calendar.google.com/" class="google calendar"></a> -->
     </div>
   </div>
   <script src="lib/angular/angular.min.js"></script>

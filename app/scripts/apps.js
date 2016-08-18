@@ -1,35 +1,38 @@
 'use strict';
 
 app.apps = function($scope) {
-  $scope.apps = {
-    gmail: {
-      class: 'google gmail',
+  $scope.apps = [
+    {
+      class: 'gmail',
       link: 'https://mail.google.com/'
     },
-    calendar: {
-      class: 'google calendar',
+    {
+      class: 'calendar',
       link: 'https://calendar.google.com/'
     },
-    search: {
-      class: 'google search',
+    {
+      class: 'search',
       link: 'https://www.google.com/'
     },
-    drive: {
-      class: 'google drive',
+    {
+      class: 'drive',
       link: 'https://drive.google.com/'
     },
-    facebook: {
+    {
       class: 'facebook',
       link: 'https://www.facebook.com/'
     },
-    twitter: {
+    {
       class: 'twitter',
       link: 'https://twitter.com/'
+    },
+    {
+      class: 'linkedin',
+      link: 'https://www.linkedin.com/'
+    },
+    {
+      class: 'waze',
+      link: 'https://www.waze.com/'
     }
-    /*,
-    youtube: {
-      class: 'google youtube',
-      link: 'https://www.youtube.com/'
-    }*/
-  }
+  ]
 }

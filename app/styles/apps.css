@@ -1,34 +1,51 @@
+#apps-header > span {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  font-size: 1.17em;
+  font-weight: bold;
+}
+#apps-main {
+  display: flex;
+}
 .apps {
   width: 6%;
 }
-.apps * {
+.apps > * {
   display: block;
   width: 40px;
   height: 40px;
   margin: 10px auto;
+  background-position: 0% 0%;
+  background-size: cover;
 }
-a.google {
-  background-image: url('../images/googleapps.png');
-  background-size: 180%;
+#drive {
+  background-image: url('../images/icons/drive.ico');
 }
-.drive {
-  background-position: -5px -111px;
+#youtube {
+  background-image: url('../images/icons/youtube.png');
 }
-.youtube {
-  background-position: -5px -5px;
+#gmail {
+  background-image: url('../images/icons/gmail.ico');
 }
-.gmail {
-  background-position: -5px -1343px;
+#search {
+  background-image: url('../images/icons/googlesearch.ico');
 }
-.search {
-  background-position: -18px -166px;
+#calendar {
+  background-image: url('../images/icons/calendar.ico');
 }
-.calendar {
-  background-position: -5px -1617px; 
+#facebook {
+  background-image: url('../images/icons/facebook.ico');
 }
-.facebook {
-  background: url('../images/facebook.ico') 0% 0% / cover;
+#twitter {
+  background-image: url('../images/icons/twitter.ico');
 }
-.twitter {
-  background: url('../images/twitter.ico') 0% 0% / cover;
+#linkedin {
+  background-image: url('../images/icons/linkedin.png');
+}
+#waze {
+  background-image: url('../images/icons/waze.ico');
+}
+#suggested {
+  -webkit-filter: grayscale(100%)
 }

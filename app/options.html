@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="styles/options.css">
+    <link rel="stylesheet" href="styles/apps.css">
   </head>
   <body ng-app="app" ng-controller="optionsCtrl" ng-cloak>
     <h1>services</h1>
@@ -25,20 +26,29 @@
         </label>
       </div>
     </div>
-    <h1>applications</h1>
-    <ul>
-      <li ng-repeat="(name, app) in apps">
-        <input ng-model="selected.apps[name]" type="checkbox" /> {{name}}
-      </li>
-    </ul>
     <label>
       language: 
       <select ng-model="selected.lang">
         <option ng-repeat="lang in ['en', 'he']" value="{{lang}}">{{lang}}</option>
       </select>
     </label>
-    <button ng-click="save()">save</button>
-    <button ng-click="reset()">reset</button>
+    <div id="apps-header">
+      <h1>applications</h1>
+      <span>suggested</span>
+      <span>selected</span>
+    </div>
+    <div id="apps-main">
+      <div id="suggested" class="apps" style="width: 100px;">
+        <span ng-repeat="name in suggestedApps" id="{{name}}" draggable="true"></span>
+      </div>
+      <div id="selected" class="apps" style="width: 100px;">
+        <span ng-repeat="name in selected.apps" id="{{name}}" draggable="true"></span>
+      </div>
+    </div>
+    <div style="margin: 8px;">
+      <button ng-click="save()">save</button>
+      <button ng-click="reset()">reset</button>
+    </div>
     <script src="lib/angular/angular.min.js"></script>
     <script src="config/defaults.js"></script>
     <script src="scripts/options.js"></script>

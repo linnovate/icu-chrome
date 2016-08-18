@@ -14,7 +14,7 @@ app.services = function($scope, $http) {
           var urls = eval(match);
           var index = Math.round(Math.random() * (urls[0].length - 1));
           var url = urls[0][index][0];
-          document.body.style.background = 'url("' + url + '") 0% 0% / cover rgba(128,128,128,.5)';
+          document.body.style.background = 'url("' + url + '") 0% 0% / cover rgb(220,220,220)';
           document.body.style.opacity = 'initial';
         }).catch(function(res) {
           $scope.services.background.local()
@@ -53,7 +53,7 @@ app.services = function($scope, $http) {
               let imgDate = new Date(res.data[n].forDate).setHours(0,0,0,0);
               let today = new Date().setHours(0,0,0,0);
               if(imgDate == today) {
-                document.body.style.backgroundImage = 'url("http://bg.hrm.demo.linnovate.net' + res.data[n].src + '")';
+                document.body.style.background = 'url("http://bg.hrm.demo.linnovate.net' + res.data[n].src + '") 0% 0% / cover rgb(220,220,220)';
                 document.body.style.opacity = 'initial';
               }
             }
@@ -66,7 +66,7 @@ app.services = function($scope, $http) {
       },
 
       local: function() {
-        document.body.style.backgroundImage = 'url("../images/dd_20141001_7212_master.jpg")';
+        document.body.style.background = 'url("../images/dd_20141001_7212_master.jpg") 0% 0% / cover rgb(220,220,220)';
         document.body.style.opacity = 'initial';
       }
     },

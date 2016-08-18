@@ -13,6 +13,6 @@ defaults = {
       name: "google"
     }
   },
-  apps: {},
+  apps: [],
   lang: "en"
 }

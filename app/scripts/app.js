@@ -47,12 +47,9 @@ app.controller('icuCtrl', function ($scope, $http) {
       }
     }
 
-    for (var n in $scope.apps) {
-      if(!data.apps[n]) {
-        delete $scope.apps[n]
-      }
-    }
-
+    $scope.apps = data.apps.map(function(app) {
+      return $scope.apps.find(function(a) {return app == a.class});
+    })
 
     $scope.$apply();
 
@@ -107,7 +104,9 @@ app.controller('icuCtrl', function ($scope, $http) {
     return item;
   }
 
-});
+})
+
+
 
 
 
@@ -119,10 +118,8 @@ app.filter('caps', function() {
       return p1.toUpperCase();
     });
   }
-});
-
-
-app.filter('camelcase', function() {
+})
+.filter('camelcase', function() {
   return function(txt) {
     if(!txt) return;
     return txt.replace(/\b[a-z]/g, function(match) {
