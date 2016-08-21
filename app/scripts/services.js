@@ -322,13 +322,9 @@ app.services = function($scope, $http) {
 
 
 
-
 function parsePhoto(arrayBuffer) {
   var byteArray = new Uint8Array(arrayBuffer);
-  var txt = '';
-  for (var i=0; i < byteArray.byteLength; i++) {
-    txt += String.fromCharCode(byteArray[i])
-  }
-  var result = 'data:image/jpeg;base64,' + btoa(txt);
-  return result;
+  var string = String.fromCharCode.apply(null, byteArray);
+  var dataUri = 'data:image/jpeg;base64,' + btoa(string);
+  return dataUri;
 }
