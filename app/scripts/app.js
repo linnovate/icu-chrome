@@ -119,7 +119,7 @@ app.filter('caps', function() {
     });
   }
 })
-.filter('camelcase', function() {
+.filter('capitalize', function() {
   return function(txt) {
     if(!txt) return;
     return txt.replace(/\b[a-z]/g, function(match) {

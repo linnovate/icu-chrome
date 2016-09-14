@@ -2,7 +2,7 @@
 <html ng-app="app" ng-controller="icuCtrl" lang="{{selected.lang}}" dir="{{locale.ltr}}" ng-cloak>
 <head>
   <meta charset="UTF-8">
-  <title>{{locale['new tab'] | camelcase}}</title>
+  <title>{{locale['new tab'] | capitalize}}</title>
   <link rel="stylesheet" type="text/css" href="styles/header.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
   <link rel="stylesheet" type="text/css" href="styles/apps.css" />
@@ -12,7 +12,7 @@
   <div class="header">
     <div>
       <a id="toggle-options" href="options.html" title="ME options">
-        {{locale.me | uppercase}}
+        {{locale.me}}
       </a>
     </div>
     <div class="middle-header"></div>
