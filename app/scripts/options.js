@@ -9,6 +9,8 @@ app.controller('optionsCtrl', function($scope, $http) {
 
   $scope.apps = $scope.apps.map(function(app){return app.class});
 
+
+
   ($scope.get = function() {
     chrome.storage.sync.get(defaults, function(data) {
       $scope.selected = data;
@@ -24,6 +26,11 @@ app.controller('optionsCtrl', function($scope, $http) {
       console.error(chrome.runtime.lastError)
     })
   }
+
+  $scope.open = function(){
+  $scope.openbr.openCamera();
+}
+
 
   $scope.reset = function() {
     chrome.storage.sync.set(defaults, function() {

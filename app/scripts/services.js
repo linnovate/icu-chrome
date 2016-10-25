@@ -1,6 +1,23 @@
 'use strict';
 
 app.services = function($scope, $http) {
+  $scope.openbr = {
+openCamera:function(){
+  $http({
+          method: 'POST',
+          url: 'http://localhost:3000/openbr',
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+          }
+        }).then(function(res) {
+console.log('res',res)
+      
+        })
+}
+      
+      
+     
+  }
 
   $scope.services = {
 

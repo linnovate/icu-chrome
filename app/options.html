@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="styles/apps.css">
   </head>
   <body ng-app="app" ng-controller="optionsCtrl" ng-cloak>
+
+   <div class="openbr" ng-click="open()">open camera</div>
     <h1>services</h1>
     <div ng-repeat="(name, service) in services">
       <h2>{{name}}</h2>
