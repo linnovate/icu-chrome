@@ -20,7 +20,7 @@
     "<all_urls>"
   ],
   "oauth2": {
-    "client_id": "473899478840-1nf3bmmc4hdlbtto3ns7nect1v81bsi9.apps.googleusercontent.com",
+    "client_id": "473899478840-rd0t8ga23atqk7fu8au3vv11asj4eos3.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/calendar.readonly",
       "https://www.googleapis.com/auth/userinfo.profile",
