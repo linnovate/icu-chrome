@@ -26,3 +26,38 @@ input[type="text"], input[type="password"] {
 ul {
   list-style-type: none;
 }
+.options .bulletin {
+  width: 100%;
+}
+.rec {
+       width: 20%;
+    height: 117px;
+    display: inline-block;
+    border: 1px solid grey;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 120px;
+    margin: 6px 9px;
+    font-size: 22px;
+}
+.recSelected {
+      border: 3px solid green;
+}
+.appRec {
+     display: inline-block;
+        border: 1px solid #d4cece;
+    padding: 31px;
+    margin: 6px 14px;
+    background: url('../images/icons/waze.ico') no-repeat;
+    background-size: 65%;
+    background-position: 50%
+}
+.hover {
+    border: 3px dashed #6ea02b !important;
+}
+/*.done {
+      border: 1px solid green !important;
+}*/
+.noBorder {
+  border:none !important;
+}

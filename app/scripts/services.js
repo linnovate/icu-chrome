@@ -1,7 +1,6 @@
 'use strict';
 
 app.services = function($scope, $http) {
-
   $scope.services = {
 
     background: {
@@ -183,53 +182,16 @@ app.services = function($scope, $http) {
       },
 
       custom: function(opts) {
+         chrome.cookies.get({"url": opts.url, "name":"root-jwt"}, function(cookie) {
+                  console.log('dfs',cookie);
+                  if(!cookie){
+                    $scope.showMsg = 'go to '+ opts.url;
+                    $scope.url = opts.url;
+                  }
 
-        // login to remote server
-        $http({
-          method: 'POST',
-          url: opts.url + '/api/login',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-          },
-          data: {
-            email: opts.email,
-            password: opts.password
-          }
-        }).then(function(res) {
-
-          var token = res.data.token;
-          $scope.users = {};
-          var usersSource = {
-            projects: false,
-            tasks: false
-          };
-
-          var getUsers = function() {
-            if(!usersSource.projects || !usersSource.tasks) return;
-
-            // get creators details
-            for (var n in $scope.users) {
-              $http({
-                method: 'GET',
-                url: opts.url + '/api/users/' + n,
-                headers: {
-                  'Authorization': 'Bearer ' + token
-                }
-              }).then(function(res) {
-                $scope.users[n] = res.data;
-                if(res.data.email == opts.email) {
-                  $scope.users[n].name = $scope.locale.me;
-                }
-              }).catch(function(res) {
-                console.log(res)
-              })
-            }
+       
             
-          }
-
-
-          // get projects
-          $http({
+           $http({
             method: 'GET',
             url: opts.url + '/api/projects',
             params: {
@@ -238,7 +200,7 @@ app.services = function($scope, $http) {
               sort: 'created'
             },
             headers: {
-              'Authorization': 'Bearer ' + token
+              'Authorization': 'Bearer ' + cookie.value
             }
           }).then(function(res) {
             console.log('custom projects:', res.data.content);
@@ -248,7 +210,6 @@ app.services = function($scope, $http) {
               $scope.users[p.creator] = {};
             });
             usersSource.projects = true;
-            getUsers();
 
           }).catch(function(res) {
             console.log(res)
@@ -264,7 +225,7 @@ app.services = function($scope, $http) {
               sort: 'created'
             },
             headers: {
-              'Authorization': 'Bearer ' + token
+              'Authorization': 'Bearer ' + cookie.value
             }
           }).then(function(res) {
             console.log('custom tasks:',res.data.content);
@@ -274,16 +235,13 @@ app.services = function($scope, $http) {
               $scope.users[t.creator] = {};
             });
             usersSource.tasks = true;
-            getUsers();
 
           }).catch(function(res) {
             console.log(res)
           })
+            });
+        console.log('opts',opts)
 
-
-        }).catch(function(res) {
-          console.log(res)
-        })
 
       }
     }
@@ -302,6 +260,7 @@ app.services = function($scope, $http) {
     chrome.identity.getAuthToken({
       interactive: true
     }, function(token) {
+      console.log(token)
       if(!token) return console.error('Error: login to Google failed');
       console.log(token)
       chrome.identity.removeCachedAuthToken({

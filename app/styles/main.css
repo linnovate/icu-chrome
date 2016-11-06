@@ -161,3 +161,12 @@ section li > div {
   border-radius: 12.5px;
   margin: 1px;
 }
+.msg{
+           padding: 4%;
+     
+}
+.msg a{
+          
+      color: black;
+    font-weight: bold;
+}

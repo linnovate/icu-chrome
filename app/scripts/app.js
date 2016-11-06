@@ -1,13 +1,28 @@
 'use strict';
 
-var app = angular.module("app", []);
+var app = angular.module("app", ['ngDragDrop','ui.bootstrap']);
 
-app.controller('icuCtrl', function ($scope, $http) {
+app.controller('icuCtrl', function ($scope, $http,$uibModal) {
 
   app.services($scope, $http);
   app.apps($scope);
 
   $scope.locale = {};
+
+  $scope.openPopup = function(){
+    console.log('pppppppppp')
+
+ var modalInstance = $uibModal.open({
+         templateUrl: '../options.html'/*,
+      controller: 'optionsCtrl'*/
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+     console.log('pppppppp')
+    }, function () {
+     
+    });
+  }
 
 
   chrome.storage.sync.get(defaults, function(data) {

@@ -6,12 +6,17 @@
   <link rel="stylesheet" type="text/css" href="styles/header.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
   <link rel="stylesheet" type="text/css" href="styles/apps.css" />
+    <link rel="stylesheet" type="text/css" href="styles/apps.css" />
+ <link rel="stylesheet" type="text/css" href="styles/options.css" />
   <link rel="stylesheet" type="text/css" href="lib/open-sans/css/open-sans.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" />
+
 </head>
 <body>
   <div class="header">
     <div>
-      <a id="toggle-options" href="options.html" title="ME options">
+      <a id="toggle-options" ng-click="openPopup()" title="ME options">
         {{locale.me}}
       </a>
     </div>
@@ -133,10 +138,21 @@
       </a>
     </div>
   </div>
+ 
+
+
+
+
+ <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
   <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular/angular-dragdrop.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="config/locale.js"></script>
   <script src="config/defaults.js"></script>
   <script src="scripts/app.js"></script>
+  <script src="scripts/options.js"></script>
   <script src="scripts/services.js"></script>
   <script src="scripts/apps.js"></script>
 </body>

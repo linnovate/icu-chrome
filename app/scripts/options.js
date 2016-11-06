@@ -1,11 +1,29 @@
 'use strict';
 
-var app = angular.module("app", []);
 
 app.controller('optionsCtrl', function($scope, $http) {
-
   app.services($scope, $http);
+  console.log('iii',$scope)
   app.apps($scope);
+
+  $scope.tabsOpts = {
+      meetings: {
+        title: 'פרופיל',
+        items: []
+      },
+      tasks: {
+        title: 'כלים',
+        items: []
+      },
+      projects: {
+        title: 'שירותים',
+        items: []
+      }
+    }
+
+  $scope.activate = function(name) {
+    $scope.active = name;
+  };
 
   $scope.apps = $scope.apps.map(function(app){return app.class});
 
@@ -43,7 +61,17 @@ app.controller('optionsCtrl', function($scope, $http) {
     })
   })
 
+  $scope.moveToSelected = function(name){
+    var index = $scope.suggestedApps.indexOf(name);
+    $scope.suggestedApps.splice(index,1);
+    $scope.selected.apps.push(name);
+  }
 
+  $scope.moveToSuggests = function(name){
+    var index = $scope.selected.apps.indexOf(name);
+    $scope.selected.apps.splice(index,1);
+    $scope.suggestedApps.push(name);
+  }
 
 
   $scope.dragstart = function(event) {
@@ -51,10 +79,12 @@ app.controller('optionsCtrl', function($scope, $http) {
     event.dataTransfer.setData('app', app)
   }
   $scope.dragover = function(event) {
-    event.preventDefault();
+      event.preventDefault();
   }
   $scope.drop = function(event) {
+    console.log('drop',event)
     var id = event.dataTransfer.getData('app');
+    console.log(id,event.dataTransfer)
     if(!id) return;
     var app = document.getElementById(id);
     if(this == event.srcElement) {
@@ -83,6 +113,15 @@ app.controller('optionsCtrl', function($scope, $http) {
     })
     $scope.$apply();
   }
+  $scope.onOver = function(e) {
+   angular.element(e.target).addClass("hover");
+  };
+  $scope.onOut = function(e) {
+    angular.element(e.target).removeClass("hover");
+  };
+  $scope.onDrop = function(e) {
+    angular.element(e.target).removeClass("hover");
+  };
 
   var apps = document.getElementById('suggested');
   apps.addEventListener('dragstart', $scope.dragstart)
