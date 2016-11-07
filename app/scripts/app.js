@@ -2,9 +2,10 @@
 
 var app = angular.module("app", ['ngDragDrop','ui.bootstrap']);
 
-app.controller('icuCtrl', function ($scope, $http,$uibModal) {
+app.controller('icuCtrl', function ($scope, $http,$uibModal,$rootScope ) {
 
-  app.services($scope, $http);
+  app.services($scope, $http, $rootScope);
+  console.log('pppp',$scope)
   app.apps($scope);
 
   $scope.locale = {};
@@ -34,8 +35,8 @@ app.controller('icuCtrl', function ($scope, $http,$uibModal) {
       if(s.name == 'google') {
         google.push(n);
       } else {
-        $scope.services[n][s.name](s);
-      }
+/*        $scope.services[n][s.name](s);
+*/      }
     }
     if(google.length) $scope.googleAuth(google);
 

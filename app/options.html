@@ -1,95 +1,127 @@
 <div ng-app="app" ng-controller="optionsCtrl" ng-cloak class="options">
-<div ng-show="profile.name">
-      <div>{{profile.name}}&nbsp;</div>
-      <img src="{{profile.image}}" />
+  <div class="head">
+    <div ng-show="$root.profile.name" class="profile">
+      <div>{{$root.profile.name}}&nbsp;</div>
+      <img src="{{$root.profile.image}}" />
     </div>
- <div class="bulletin">
-      <header>
-        <nav>
-          <ul>
-            <li ng-repeat="(name, tab) in tabsOpts" ng-click="activate(name)">
-              <a href="#" title="{{tab.title}}" ng-class="{active: name == active}">{{tab.title}}</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <section>
-        <ul ng-show="active == 'meetings'" class="meetings">
-          <li ng-repeat="item in tabs.meetings.items | filter:meetsDist" style="color:black">
-            <div>
-              <a class="meetings-summary" href="{{item.htmlLink}}">{{item.summary}}</a>
-              <div class="partition"></div>
-              <div class="meetings-date">
-                {{item.start.dateTime | date: 'H:mm'}}-{{item.end.dateTime | date: 'H:mm'}}{{item.style.text}}
-              </div>
-            </div>
-            <div>
-              <div class="meetings-location">{{item.location}}</div>
-              <div class="partition"></div>
-              <div class="meetings-attendees">
-                <img ng-repeat="atd in item.attendees | limitTo : 3" class="attendees" title="{{atd.title || atd.displayName || atd.email}}" src="{{atd.photo || 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=25'}}" />
-                <span ng-show="item.attendees.length > 3">+{{item.attendees.length - 3}}</span>
-              </div>
-            </div>
-            <hr class="meetings-border" ng-style="{ color: item.style.color, width: item.style.width }">
+    <div ng-click="close()">x</div>
+  </div>
+
+  <div class="bulletin">
+    <header>
+      <nav>
+        <ul>
+          <li ng-repeat="(name, tab) in tabsOpts" ng-click="activate(name)">
+            <a href="#" title="{{tab.title}}" ng-class="{active: name == active}">{{tab.title}}</a>
           </li>
         </ul>
-        <ul ng-show="active == 'tasks'" class="bar">
-         <div id="apps-header">
-      <h3>בר כלים</h3>
-      <span>בחר כלים להציג בבר הכלים</span>
-    </div>
-    <div id="apps-main">
-               <div id="selected" class="apps" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut',  onDrop: 'onDrop'}" data-drop="true">
-        <span ng-repeat="name in selected.apps" id="{{name}}" draggable="true" ng-click="moveToSuggests(name)"  data-drag="true" data-drop="true" ></span>
-      </div>
-        <div id="suggested" class="apps" data-drop="true">
-        <div ng-repeat="name in suggestedApps" data-drop="true" data-drag="true" id="{{name}}" class="appRec" draggable="true" ng-click="moveToSelected(name)" jqyoui-draggable="{animate: true}"></div>
-      </div>
-    </div>
-        </ul>
-        <ul ng-show="active == 'projects'" class="projects">
-        {{services}}
-    <div ng-repeat="(name, service) in services">
-      <h3>{{name}}</h3>
-         <div ng-repeat="(name, option) in service" ng-click="selected.services[name] = name" class="rec" ng-class="{recSelected:name == selected.services[name].name }">
-       {{name}}
-      </div>
-      <div ng-show="selected.services[name].name == 'custom'">
+      </nav>
+    </header>
+    <section>
+      <ul ng-show="active == 'meetings'" class="meetings">
+       <div class="wrap">
+         <div>
+          <h3>רקעים</h3>
+          <span>בחר שירות לניהול הרקעים</span>
+        </div>
+        <div ng-repeat="(name, option) in services['profile']" ng-click="selected.services['profile'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['profile'].name}">
+         {{name}}
+       </div>
+
+       <div ng-show="selected.services['profile'].name == 'custom'">
         <label>
           <span>url: </span>
-          <input ng-model="selected.services[name].url" type="text" />
+          <input ng-model="selected.services['profile'].url" type="text" />
         </label>
         <label>
           <span>email: </span>
-          <input ng-model="selected.services[name].email" type="text" />
+          <input ng-model="selected.services['profile'].email" type="text" />
         </label>
         <label>
           <span>pwd: </span>
-          <input ng-model="selected.services[name].password" type="password" />
+          <input ng-model="selected.services['profile'].password" type="password" />
         </label>
       </div>
+
     </div>
+    <div class="slct-lang wrap last">
+     <h3>שפה</h3>
+     <select class="lang" ng-model="selected.lang">
+      <option ng-repeat="lang in ['en', 'he']" value="{{lang}}">{{lang}}</option>
+    </select>
+
+  </div>
+</ul>
+<ul ng-show="active == 'tasks'" class="bar">
+ <div id="apps-header">
+  <h3>בר כלים</h3>
+  <span>בחר כלים להציג בבר הכלים</span>
+</div>
+<div id="apps-main">
+ <div id="selected" class="apps" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut',  onDrop: 'onDrop'}" data-drop="true">
+  <span ng-repeat="name in selected.apps" id="{{name}}" draggable="true" ng-click="moveToSuggests(name)"  data-drag="true" data-drop="true" ></span>
+</div>
+<div id="suggested" class="apps" data-drop="true">
+  <div ng-repeat="name in suggestedApps" data-drop="true" data-drag="true" id="{{name}}" class="appRec" draggable="true" ng-click="moveToSelected(name)" jqyoui-draggable="{animate: true}"></div>
+</div>
+</div>
+</ul>
+<ul ng-show="active == 'projects'" class="projects">
+  <div class="wrap">
+    <div>
+      <h3>רקעים</h3>
+      <span>בחר שירות לניהול הרקעים</span>
+    </div>
+    <div ng-repeat="(name, option) in services['background']" ng-click="selected.services['background'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['background'].name}">
+     {{name}}
+   </div>
+
+   <div ng-show="selected.services['background'].name == 'custom'">
     <label>
-      language: 
-      <select ng-model="selected.lang">
-        <option ng-repeat="lang in ['en', 'he']" value="{{lang}}">{{lang}}</option>
-      </select>
+      <span>url: </span>
+      <input ng-model="selected.services['background'].url" type="text" />
     </label>
-  
-        </ul>
-      </section>
-    </div>
+    <label>
+      <span>email: </span>
+      <input ng-model="selected.services['background'].email" type="text" />
+    </label>
+    <label>
+      <span>pwd: </span>
+      <input ng-model="selected.services['background'].password" type="password" />
+    </label>
+  </div>
+</div>
+
+ <div class="wrap last">
+<div>
+  <h3>יומן</h3>
+  <span>בחר שירות ליומן ופגישות</span>
+</div>
+<div ng-repeat="(name, option) in services['meetings']" ng-click="selected.services['meetings'].name = name" class="rec" ng-class="{recSelected:name == selected.services['meetings'].name }">
+ {{name}}
+</div>
+<div ng-show="selected.services['meetings'].name == 'custom'">
+  <label>
+    <span>url: </span>
+    <input ng-model="selected.services['meetings'].url" type="text" />
+  </label>
+  <label>
+    <span>email: </span>
+    <input ng-model="selected.services['meetings'].email" type="text" />
+  </label>
+  <label>
+    <span>pwd: </span>
+    <input ng-model="selected.services['meetings'].password" type="password" />
+  </label>
+</div>
+</div>
+</ul>
+</section>
+</div>
 
 
-    <div style="margin: 8px;">
-      <button ng-click="save()">save</button>
-      <button ng-click="reset()">reset</button>
-    </div>
-    </div><!--     <script src="lib/angular/angular.min.js"></script>
-    <script src="config/defaults.js"></script>
-    <script src="scripts/options.js"></script>
-    <script src="scripts/services.js"></script>
-    <script src="scripts/apps.js"></script>
-  </body>
-</html> -->
+<div class="btns" >
+  <button class="save" ng-click="save()">save</button>
+  <button class="reset" ng-click="reset()">reset</button>
+</div>
+</div>

@@ -1,6 +1,6 @@
 'use strict';
 
-app.services = function($scope, $http) {
+app.services = function($scope, $http, $rootScope) {
   $scope.services = {
 
     background: {
@@ -71,9 +71,11 @@ app.services = function($scope, $http) {
     },
 
 
-
     profile: {
+
       google: function (token) {
+              console.log('0000000000000000000000')
+
         $http({
           method: 'GET',
           url: 'https://content.googleapis.com/plus/v1/people/me',
@@ -81,7 +83,7 @@ app.services = function($scope, $http) {
             'Authorization': 'Bearer ' + token
           }
         }).then(function(res) {
-          $scope.profile = {
+          $rootScope.profile = {
             name: res.data.name.givenName,
             image: res.data.image.url
           }

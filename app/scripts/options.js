@@ -1,9 +1,9 @@
 'use strict';
 
 
-app.controller('optionsCtrl', function($scope, $http) {
-  app.services($scope, $http);
-  console.log('iii',$scope)
+app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
+  
+  app.services($scope, $http,$rootScope);
   app.apps($scope);
 
   $scope.tabsOpts = {
@@ -19,6 +19,10 @@ app.controller('optionsCtrl', function($scope, $http) {
         title: 'שירותים',
         items: []
       }
+    }
+
+    $scope.close = function(){
+      $scope.$dismiss('cancel');
     }
 
   $scope.activate = function(name) {
