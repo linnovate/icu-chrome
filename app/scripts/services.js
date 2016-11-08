@@ -21,26 +21,20 @@ app.services = function($scope, $http, $rootScope) {
       },
 
       custom: function(opts) {
+ chrome.cookies.get({"url": opts.url, "name":"root-jwt"}, function(cookie) {
+                  console.log('dfs',cookie);
+                  if(!cookie){
+                    $scope.showMsg = 'go to '+ opts.url;
+                    $scope.url = opts.url;
+                  }
 
-        // login to remote server
-        $http({
-          method: 'POST',
-          url: opts.url + '/api/login',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-          },
-          data: {
-            email: opts.email,
-            password: opts.password
-          }
-        }).then(function(res) {
-
+       
           // get background url for today
           $http({
             method: 'POST',
             url: opts.url + '/api/backgroundImage/example/imagesForMonth',
             headers: {
-              'Authorization': 'Bearer ' + res.data.token,
+              'Authorization': 'Bearer ' + cookie.value,
               'Content-Type': 'application/json;charset=UTF-8'
             },
             data: {
@@ -59,9 +53,8 @@ app.services = function($scope, $http, $rootScope) {
           }).catch(function(res) {
             $scope.services.background.local()
           })
-        }).catch(function(res) {
-          $scope.services.background.local()
         })
+
       },
 
       local: function() {

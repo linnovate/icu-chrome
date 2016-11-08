@@ -7,19 +7,20 @@ app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
   app.apps($scope);
 
   $scope.tabsOpts = {
-      meetings: {
+      profile: {
         title: 'פרופיל',
         items: []
       },
-      tasks: {
+      tools: {
         title: 'כלים',
         items: []
       },
-      projects: {
+      services: {
         title: 'שירותים',
         items: []
       }
     }
+    $scope.active = 'profile';
 
     $scope.close = function(){
       $scope.$dismiss('cancel');

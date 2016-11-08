@@ -1,8 +1,9 @@
 <div ng-app="app" ng-controller="optionsCtrl" ng-cloak class="options">
   <div class="head">
     <div ng-show="$root.profile.name" class="profile">
+     <img src="{{$root.profile.image}}" />
       <div>{{$root.profile.name}}&nbsp;</div>
-      <img src="{{$root.profile.image}}" />
+     
     </div>
     <div ng-click="close()">x</div>
   </div>
@@ -18,11 +19,11 @@
       </nav>
     </header>
     <section>
-      <ul ng-show="active == 'meetings'" class="meetings">
+      <ul ng-show="active == 'profile'" class="meetings">
        <div class="wrap">
          <div>
-          <h3>רקעים</h3>
-          <span>בחר שירות לניהול הרקעים</span>
+          <h3>{{locale['backgrounds'] | caps}} </h3>
+          <span>{{locale['choose a service for managing backgrounds']}}</span>
         </div>
         <div ng-repeat="(name, option) in services['profile']" ng-click="selected.services['profile'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['profile'].name}">
          {{name}}
@@ -52,7 +53,7 @@
 
   </div>
 </ul>
-<ul ng-show="active == 'tasks'" class="bar">
+<ul ng-show="active == 'tools'" class="bar">
  <div id="apps-header">
   <h3>בר כלים</h3>
   <span>בחר כלים להציג בבר הכלים</span>
@@ -66,11 +67,11 @@
 </div>
 </div>
 </ul>
-<ul ng-show="active == 'projects'" class="projects">
+<ul ng-show="active == 'services'" class="projects">
   <div class="wrap">
     <div>
-      <h3>רקעים</h3>
-      <span>בחר שירות לניהול הרקעים</span>
+        <h3>{{locale['backgrounds'] | caps}} </h3>
+          <span>{{locale['choose a service for managing backgrounds']}}</span>
     </div>
     <div ng-repeat="(name, option) in services['background']" ng-click="selected.services['background'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['background'].name}">
      {{name}}
@@ -125,3 +126,4 @@
   <button class="reset" ng-click="reset()">reset</button>
 </div>
 </div>
+

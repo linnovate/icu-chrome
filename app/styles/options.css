@@ -32,7 +32,9 @@ ul {
 .options .bulletin ul > li > a{
   margin-top: 0;
 }
-
+.options .bulletin a:focus {
+    outline:none;
+}
 .head{
   display: flex;
   justify-content: space-between;
@@ -78,6 +80,7 @@ ul {
   height: 40px;
   border: 4px solid rgba(0, 0, 0, 0.35);
   border-radius: 26px;
+      margin: 0 6px;
 }
 .profile div {
   font-size: 19px;
@@ -123,3 +126,6 @@ ul {
 .slct-lang label,.slct-lang select  {
   display: block;
 }
+.modal-dialog {
+    margin: 3% 55% !important;
+    }

@@ -35,8 +35,8 @@ app.controller('icuCtrl', function ($scope, $http,$uibModal,$rootScope ) {
       if(s.name == 'google') {
         google.push(n);
       } else {
-/*        $scope.services[n][s.name](s);
-*/      }
+        $scope.services[n][s.name](s);
+      }
     }
     if(google.length) $scope.googleAuth(google);
 
