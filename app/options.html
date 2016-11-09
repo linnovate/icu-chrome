@@ -5,7 +5,7 @@
       <div>{{$root.profile.name}}&nbsp;</div>
      
     </div>
-    <div ng-click="close()">x</div>
+    <div class="close" ng-click="close()">x</div>
   </div>
 
   <div class="bulletin">
@@ -27,20 +27,13 @@
         </div>
         <div ng-repeat="(name, option) in services['profile']" ng-click="selected.services['profile'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['profile'].name}">
          {{name}}
+         <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['profile'].name"/>
        </div>
 
        <div ng-show="selected.services['profile'].name == 'custom'">
         <label>
           <span>url: </span>
           <input ng-model="selected.services['profile'].url" type="text" />
-        </label>
-        <label>
-          <span>email: </span>
-          <input ng-model="selected.services['profile'].email" type="text" />
-        </label>
-        <label>
-          <span>pwd: </span>
-          <input ng-model="selected.services['profile'].password" type="password" />
         </label>
       </div>
 
@@ -123,7 +116,7 @@
 
 <div class="btns" >
   <button class="save" ng-click="save()">save</button>
-  <button class="reset" ng-click="reset()">reset</button>
+  <button class="reset" ng-click="reset()">cancel</button>
 </div>
 </div>
 

@@ -1,4 +1,4 @@
-alert('ddddd')
+
 locale = {
   "new tab": "כרטיסייה חדשה",
   "me": "אני",
