@@ -68,6 +68,7 @@
     </div>
     <div ng-repeat="(name, option) in services['background']" ng-click="selected.services['background'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['background'].name}">
      {{name}}
+      <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['background'].name"/>
    </div>
 
    <div ng-show="selected.services['background'].name == 'custom'">
@@ -93,6 +94,7 @@
 </div>
 <div ng-repeat="(name, option) in services['meetings']" ng-click="selected.services['meetings'].name = name" class="rec" ng-class="{recSelected:name == selected.services['meetings'].name }">
  {{name}}
+      <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['meetings'].name"/>
 </div>
 <div ng-show="selected.services['meetings'].name == 'custom'">
   <label>
