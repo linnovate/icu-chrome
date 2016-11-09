@@ -26,6 +26,18 @@ app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
       $scope.$dismiss('cancel');
     }
 
+     chrome.storage.sync.get(defaults, function(data) {
+
+    if (data.lang == 'he') {
+      $scope.locale = locale;
+    } else {
+      $scope.locale = {};
+      for (var n in locale) {
+        $scope.locale[n] = n;
+      }
+    }
+  });
+
   $scope.activate = function(name) {
     $scope.active = name;
   };
