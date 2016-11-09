@@ -30,11 +30,9 @@
          <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['profile'].name"/>
        </div>
 
-       <div ng-show="selected.services['profile'].name == 'custom'">
-        <label>
-          <span>url: </span>
+       <div ng-show="selected.services['profile'].name == 'custom'" class="customUrl">
+          <div>url: </div>
           <input ng-model="selected.services['profile'].url" type="text" />
-        </label>
       </div>
 
     </div>
