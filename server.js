@@ -29,23 +29,16 @@ function compareImgToGal(){
 	});
 }
 
-app.post('/test', function (req, res) {
-	compareImgToGal();
-
-	res.send('rerewr');
-});
-
-
 /*br -algorithm FaceRecognition -compare meds.gal img/baby2.jpg match_scores.csv
 */app.post('/openbr', function (req, res) {
-	exec('br -gui -algorithm "SaveMat(original)+Cvt(Gray)+Cascade(FrontalFace)+Expand+FaceClassificationRegistration+<FaceClassificationExtraction>+<AgeRegressor>/<GenderClassifier>+Discard+RestoreMat(original)+Draw(inPlace=true)+DrawPropertiesPoint([Age,Gender],Affine_0,inPlace=true)+SaveMat(original)+Discard+Contract+RestoreMat(original)+FPSCalc+Show(false,[AvgFPS,Age,Gender])+Discard:Dist(L2)" -enroll 0.webcam rivka.gal')
-	.catch(function (err) {
+	exec('br -algorithm FaceRecognition -enroll 0.webcam me.gal')
+		.catch(function (err) {
 		console.error('ERROR: ', err);
 	});
 	console.log('ppppppppp')
 	var timer = setInterval(function() {
 		console.log('in interval')
-		fs.stat('./rivka.gal', function(err, fileStat) {
+		fs.stat('./me.gal', function(err, fileStat) {
 			if (err) {
 				if (err.code == 'ENOENT') {
 					console.log('Does not exist.');
@@ -55,24 +48,23 @@ app.post('/test', function (req, res) {
 				if (fileStat.isFile()) {
 					console.log('File found.');
 					clearInterval(timer);
-					exec('br -convert Gallery rivka.gal rivka.xml');
-					exec('br -convert Gallery rivka1.gal rivka1.xml');
-					exec('br -compare rivka.gal rivka1.gal rivka3.mtx')
-					exec('br -makeMask rivka.xml rivka1.xml MEDS.mask');
-					exec('br -eval rivka3.mtx MEDS.mask enddd.csv')
+					exec('br -algorithm FaceRecognition -compare images.gal me.gal match_scores.csv')
+				
 					// exec('-plot enddd.csv MEDS')
 /*					exec("ps aux | grep algorithm | awk '{print $2}' | xargs kill");
 */					
 					.then(function (result) {
 		console.log('uuuuuuuuuuu')
-		/*var Converter = require("csvtojson").Converter;
-        var csvFileName="./rivka2.csv";
+		exec("ps aux | grep algorithm | awk '{print $2}' | xargs kill");
+		var Converter = require("csvtojson").Converter;
+        var csvFileName="./match_scores.csv";
+        console.log('csvFileName')
 		csvConverter=new Converter({});
 		var d = 0;
-		on("end_parsed",function(jsonObj){
+		csvConverter.on("end_parsed",function(jsonObj){
 			jsonObj = jsonObj[0];
 			for(var i = 0  in jsonObj){
-				if(jsonObj[i].jpg > 0){
+				if(jsonObj[i].jpg > 1){
 					console.log(jsonObj[i].jpg,'i',i)
 					d =1;
 				}
@@ -86,7 +78,7 @@ app.post('/test', function (req, res) {
 		var stdout = result.stdout;
 		var stderr = result.stderr;
 		console.log('stdout: ', stdout);
-		console.log('stderr: ', stderr);*/
+		console.log('stderr: ', stderr);
 	})
 				} else if (fileStat.isDirectory()) {
 					console.log('Directory found.');
