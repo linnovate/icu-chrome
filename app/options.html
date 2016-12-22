@@ -13,7 +13,7 @@
       <nav>
         <ul>
           <li ng-repeat="(name, tab) in tabsOpts" ng-click="activate(name)">
-            <a href="#" title="{{tab.title}}" ng-class="{active: name == active}">{{tab.title}}</a>
+            <a href="#" title="{{locale[tab.title] | caps}}" ng-class="{active: name == active}">{{locale[tab.title] | caps}}</a>
           </li>
         </ul>
       </nav>
@@ -23,31 +23,31 @@
        <div class="wrap">
          <div>
           <h3>{{locale['backgrounds'] | caps}} </h3>
-          <span>{{locale['choose a service for managing backgrounds']}}</span>
+          <span>{{locale['choose a service for managing'] | caps}} {{locale['backgrounds']}}</span>
         </div>
         <div ng-repeat="(name, option) in services['profile']" ng-click="selected.services['profile'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['profile'].name}">
-         {{name}}
+         {{locale[name]}}
          <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['profile'].name"/>
        </div>
 
        <div ng-show="selected.services['profile'].name == 'custom'" class="customUrl">
-          <div>url: </div>
+          <div>{{locale['url']}}: </div>
           <input ng-model="selected.services['profile'].url" type="text" />
       </div>
 
     </div>
     <div class="slct-lang wrap last">
-     <h3>שפה</h3>
+     <h3>{{locale['language'] | caps}}</h3>
      <select class="lang" ng-model="selected.lang">
-      <option ng-repeat="lang in ['en', 'he']" value="{{lang}}">{{lang}}</option>
+      <option ng-repeat="lang in ['en', 'he']" value="{{lang}}">{{locale[lang]}}</option>
     </select>
 
   </div>
 </ul>
 <ul ng-show="active == 'tools'" class="bar">
  <div id="apps-header">
-  <h3>בר כלים</h3>
-  <span>בחר כלים להציג בבר הכלים</span>
+  <h3>{{locale['toolbar'] | caps}}</h3>
+  <span>{{locale['choose Tools to display in tool bar'] | caps}}</span>
 </div>
 <div id="apps-main">
  <div id="selected" class="apps" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut',  onDrop: 'onDrop'}" data-drop="true">
@@ -61,51 +61,35 @@
 <ul ng-show="active == 'services'" class="projects">
   <div class="wrap">
     <div>
-        <h3>{{locale['backgrounds'] | caps}} </h3>
-          <span>{{locale['choose a service for managing backgrounds']}}</span>
+        <h3>{{locale['projects'] | caps}} {{locale['& ']}}{{locale['tasks'] | caps}} </h3>
+          <span>{{locale['choose a service for managing'] | caps}} {{locale['projects']}} {{locale['& ']}}{{locale['tasks']}}</span>
     </div>
-    <div ng-repeat="(name, option) in services['background']" ng-click="selected.services['background'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['background'].name}">
-     {{name}}
-      <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['background'].name"/>
+    <div ng-repeat="(name, option) in services['projects & tasks']" ng-click="selected.services['projects & tasks'].name = name" class="rec"  ng-class="{recSelected:name == selected.services['projects & tasks'].name}">
+     {{locale[name]}}
+      <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['projects & tasks'].name"/>
    </div>
 
-   <div ng-show="selected.services['background'].name == 'custom'">
+   <div ng-show="selected.services['projects & tasks'].name == 'custom'">
     <label>
-      <span>url: </span>
-      <input ng-model="selected.services['background'].url" type="text" />
-    </label>
-    <label>
-      <span>email: </span>
-      <input ng-model="selected.services['background'].email" type="text" />
-    </label>
-    <label>
-      <span>pwd: </span>
-      <input ng-model="selected.services['background'].password" type="password" />
+      <span>{{locale['url']}}: </span>
+      <input ng-model="selected.services['projects & tasks'].url" type="text" />
     </label>
   </div>
 </div>
 
  <div class="wrap last">
 <div>
-  <h3>יומן</h3>
-  <span>בחר שירות ליומן ופגישות</span>
+  <h3>{{locale['calendar'] | caps}}</h3>
+  <span>{{locale['choose a service for managing'] | caps}} {{locale['calendar']}} {{locale['& ']}}{{locale['meetings']}}</span>
 </div>
 <div ng-repeat="(name, option) in services['meetings']" ng-click="selected.services['meetings'].name = name" class="rec" ng-class="{recSelected:name == selected.services['meetings'].name }">
- {{name}}
+ {{locale[name]}}
       <img src="../images/icons/icon-check.svg" ng-if="name == selected.services['meetings'].name"/>
 </div>
 <div ng-show="selected.services['meetings'].name == 'custom'">
   <label>
-    <span>url: </span>
+    <span>{{locale['url']}}: </span>
     <input ng-model="selected.services['meetings'].url" type="text" />
-  </label>
-  <label>
-    <span>email: </span>
-    <input ng-model="selected.services['meetings'].email" type="text" />
-  </label>
-  <label>
-    <span>pwd: </span>
-    <input ng-model="selected.services['meetings'].password" type="password" />
   </label>
 </div>
 </div>
@@ -115,8 +99,8 @@
 
 
 <div class="btns" >
-  <button class="save" ng-click="save()">save</button>
-  <button class="reset" ng-click="reset()">cancel</button>
+  <button class="save" ng-click="save()">{{locale['save'] | caps}}</button>
+  <button class="reset" ng-click="reset()">{{locale['cancel'] | caps}}</button>
 </div>
 </div>
 

@@ -15,20 +15,23 @@ app.services = function($scope, $http, $rootScope) {
           var url = urls[0][index][0];
           document.body.style.background = 'url("' + url + '") 0% 0% / cover rgb(220,220,220)';
           document.body.style.opacity = 'initial';
-        }).catch(function(res) {
+        }).
+        catch (function(res) {
           $scope.services.background.local()
         })
       },
 
       custom: function(opts) {
- chrome.cookies.get({"url": opts.url, "name":"root-jwt"}, function(cookie) {
-                  console.log('dfs',cookie);
-                  if(!cookie){
-                    $scope.showMsg = 'go to '+ opts.url;
-                    $scope.url = opts.url;
-                  }
+        chrome.cookies.get({
+          "url": opts.url,
+          "name": "root-jwt"
+        }, function(cookie) {
+          if (!cookie) {
+            $scope.showMsg = 'go to ' + opts.url;
+            $scope.url = opts.url;
+          }
 
-       
+
           // get background url for today
           $http({
             method: 'POST',
@@ -41,16 +44,16 @@ app.services = function($scope, $http, $rootScope) {
               month: new Date().getMonth()
             }
           }).then(function(res) {
-            console.log('custom images:', res.data)
-            for(var n in res.data) {
-              let imgDate = new Date(res.data[n].forDate).setHours(0,0,0,0);
-              let today = new Date().setHours(0,0,0,0);
-              if(imgDate == today) {
+            for (var n in res.data) {
+              let imgDate = new Date(res.data[n].forDate).setHours(0, 0, 0, 0);
+              let today = new Date().setHours(0, 0, 0, 0);
+              if (imgDate == today) {
                 document.body.style.background = 'url("http://bg.hrm.demo.linnovate.net' + res.data[n].src + '") 0% 0% / cover rgb(220,220,220)';
                 document.body.style.opacity = 'initial';
               }
             }
-          }).catch(function(res) {
+          }).
+          catch (function(res) {
             $scope.services.background.local()
           })
         })
@@ -66,9 +69,7 @@ app.services = function($scope, $http, $rootScope) {
 
     profile: {
 
-      google: function (token) {
-              console.log('0000000000000000000000')
-
+      google: function(token) {
         $http({
           method: 'GET',
           url: 'https://content.googleapis.com/plus/v1/people/me',
@@ -83,8 +84,38 @@ app.services = function($scope, $http, $rootScope) {
         })
       },
 
-      custom: function() {
-        console.log('executed profile custom function')
+      custom: function(opts) {
+        chrome.cookies.get({
+          "url": opts.url,
+          "name": "root-jwt"
+        }, function(cookie) {
+          if (!cookie) {
+            $scope.showMsg = 'go to ' + opts.url;
+            $scope.url = opts.url;
+          }
+
+
+
+          $http({
+            method: 'GET',
+            url: opts.url + '/api/users/me',
+            headers: {
+              'Authorization': 'Bearer ' + cookie.value
+            }
+          }).then(function(res) {
+            $rootScope.profile = {
+              name: res.data.name,
+              image: res.data.profile.avatar
+            }
+
+          }).
+          catch (function(res) {
+            console.log(res)
+          })
+
+        });
+
+
       }
     },
 
@@ -97,7 +128,7 @@ app.services = function($scope, $http, $rootScope) {
           url: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
           params: {
             timeMin: new Date().toISOString(), // (1465654232773)
-            timeMax: new Date(new Date().setHours(23,59,59,999)).toISOString(), // end of day
+            timeMax: new Date(new Date().setHours(23, 59, 59, 999)).toISOString(), // end of day
             singleEvents: true,
             showDeleted: false,
             orderBy: 'startTime',
@@ -107,14 +138,13 @@ app.services = function($scope, $http, $rootScope) {
             'Authorization': 'Bearer ' + token
           }
         }).then(function(res) {
-          console.log('google calendar events:', res.data.items)
           $scope.tabs.meetings.items = res.data.items;
           $scope.attendees = {};
-          for ( var i=0 ; i<res.data.items.length ; i++ ) {
-            if(!res.data.items[i].attendees) continue;
-            for ( var j=0; j<res.data.items[i].attendees.length; j++ ) {
-              if(res.data.items[i].attendees[j].self) {  // remove self from attendees array
-                res.data.items[i].attendees.splice(j,1);
+          for (var i = 0; i < res.data.items.length; i++) {
+            if (!res.data.items[i].attendees) continue;
+            for (var j = 0; j < res.data.items[i].attendees.length; j++) {
+              if (res.data.items[i].attendees[j].self) { // remove self from attendees array
+                res.data.items[i].attendees.splice(j, 1);
                 j--;
                 continue;
               }
@@ -122,7 +152,6 @@ app.services = function($scope, $http, $rootScope) {
               $scope.attendees[email] = res.data.items[i].attendees[j];
             }
           }
-          console.log($scope.attendees)
 
           Object.keys($scope.attendees).forEach(function(email) {
             let attendee = $scope.attendees[email]
@@ -139,7 +168,7 @@ app.services = function($scope, $http, $rootScope) {
                 'max-results': 1000
               }
             }).then(function(res) {
-              if(!res.data.feed.entry) return;
+              if (!res.data.feed.entry) return;
               attendee.title = res.data.feed.entry[0].title.$t;
               $http({
                 method: 'GET',
@@ -154,7 +183,8 @@ app.services = function($scope, $http, $rootScope) {
               }).then(function(res) {
                 attendee.photo = parsePhoto(res.data);
               })
-            }).catch(function(res) {
+            }).
+            catch (function(res) {
               console.log(res)
             })
 
@@ -177,16 +207,18 @@ app.services = function($scope, $http, $rootScope) {
       },
 
       custom: function(opts) {
-         chrome.cookies.get({"url": opts.url, "name":"root-jwt"}, function(cookie) {
-                  console.log('dfs',cookie);
-                  if(!cookie){
-                    $scope.showMsg = 'go to '+ opts.url;
-                    $scope.url = opts.url;
-                  }
+        chrome.cookies.get({
+          "url": opts.url,
+          "name": "root-jwt"
+        }, function(cookie) {
+          if (!cookie) {
+            $scope.showMsg = 'go to ' + opts.url;
+            $scope.url = opts.url;
+          }
 
-       
-            
-           $http({
+
+
+          $http({
             method: 'GET',
             url: opts.url + '/api/projects',
             params: {
@@ -198,15 +230,17 @@ app.services = function($scope, $http, $rootScope) {
               'Authorization': 'Bearer ' + cookie.value
             }
           }).then(function(res) {
-            console.log('custom projects:', res.data.content);
             $scope.tabs.projects.items = res.data.content;
+
+            $scope.users = $scope.users || {};
 
             res.data.content.forEach(function(p) {
               $scope.users[p.creator] = {};
             });
-            usersSource.projects = true;
+            // usersSource.projects = true;
 
-          }).catch(function(res) {
+          }).
+          catch (function(res) {
             console.log(res)
           })
 
@@ -223,19 +257,20 @@ app.services = function($scope, $http, $rootScope) {
               'Authorization': 'Bearer ' + cookie.value
             }
           }).then(function(res) {
-            console.log('custom tasks:',res.data.content);
             $scope.tabs.tasks.items = res.data.content;
+
+            $scope.users = $scope.users || {};
 
             res.data.content.forEach(function(t) {
               $scope.users[t.creator] = {};
             });
-            usersSource.tasks = true;
+            // usersSource.tasks = true;
 
-          }).catch(function(res) {
+          }).
+          catch (function(res) {
             console.log(res)
           })
-            });
-        console.log('opts',opts)
+        });
 
 
       }
@@ -244,35 +279,27 @@ app.services = function($scope, $http, $rootScope) {
 
 
 
-
   $scope.googleAuth = function(services) {
-    for(var n in services) {
-      if($scope.services[services[n]].google.toString().slice(9,11) == '()') {
+    for (var n in services) {
+      if ($scope.services[services[n]].google.toString().slice(9, 11) == '()') {
         $scope.services[services[n]].google()
-        services.splice(n,1)
+        services.splice(n, 1)
       }
     }
     chrome.identity.getAuthToken({
       interactive: true
     }, function(token) {
-      console.log(token)
-      if(!token) return console.error('Error: login to Google failed');
-      console.log(token)
+      if (!token) return console.error('Error: login to Google failed');
       chrome.identity.removeCachedAuthToken({
         token: token
       })
-      for(var n in services) {
+      for (var n in services) {
         $scope.services[services[n]].google(token);
       }
     })
   }
 
 };
-
-
-
-
-
 
 
 

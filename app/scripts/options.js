@@ -1,32 +1,32 @@
 'use strict';
 
 
-app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
-  
-  app.services($scope, $http,$rootScope);
+app.controller('optionsCtrl', function($scope, $http, $rootScope) {
+
+  app.services($scope, $http, $rootScope);
   app.apps($scope);
 
   $scope.tabsOpts = {
-      profile: {
-        title: 'פרופיל',
-        items: []
-      },
-      tools: {
-        title: 'כלים',
-        items: []
-      },
-      services: {
-        title: 'שירותים',
-        items: []
-      }
+    profile: {
+      title: 'profile',
+      items: []
+    },
+    tools: {
+      title: 'tools',
+      items: []
+    },
+    services: {
+      title: 'services',
+      items: []
     }
-    $scope.active = 'profile';
+  }
+  $scope.active = 'profile';
 
-    $scope.close = function(){
-      $scope.$dismiss('cancel');
-    }
+  $scope.close = function() {
+    $scope.$dismiss('cancel');
+  }
 
-     chrome.storage.sync.get(defaults, function(data) {
+  chrome.storage.sync.get(defaults, function(data) {
 
     if (data.lang == 'he') {
       $scope.locale = locale;
@@ -42,30 +42,39 @@ app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
     $scope.active = name;
   };
 
-  $scope.apps = $scope.apps.map(function(app){return app.class});
+  $scope.apps = $scope.availableApps.map(function(app) {
+    return app.class
+  });
 
-  ($scope.get = function() {
+  ($scope.get = function(cb) {
     chrome.storage.sync.get(defaults, function(data) {
       $scope.selected = data;
       $scope.$apply();
       $scope.setApps();
+      if (cb) {
+        return(cb());
+      }
     })
   })()
 
   $scope.save = function() {
     chrome.storage.sync.set($scope.selected, function() {
-      $scope.get();
-      if(!chrome.runtime.lastError) return;
-      console.error(chrome.runtime.lastError)
+      $scope.get(function(){
+        $scope.$dismiss('save');
+      });
+      $rootScope.$emit('resetTab');
+      if (!chrome.runtime.lastError) return;
+      console.error(chrome.runtime.lastError);
     })
   }
 
   $scope.reset = function() {
-    chrome.storage.sync.set(defaults, function() {
-      $scope.get();
-      if(!chrome.runtime.lastError) return;
-      console.error(chrome.runtime.lastError)
-    })
+    // chrome.storage.sync.set(defaults, function() {
+    //   $scope.get();
+    //   if (!chrome.runtime.lastError) return;
+    //   console.error(chrome.runtime.lastError)
+    // })
+    $scope.$dismiss('cancel');
   }
 
   $scope.$watch('lang', function() {
@@ -73,20 +82,20 @@ app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
       lang: $scope.lang
     }, function() {
       $scope.get();
-      if(!chrome.runtime.lastError) return;
+      if (!chrome.runtime.lastError) return;
       console.error(chrome.runtime.lastError)
     })
   })
 
-  $scope.moveToSelected = function(name){
+  $scope.moveToSelected = function(name) {
     var index = $scope.suggestedApps.indexOf(name);
-    $scope.suggestedApps.splice(index,1);
+    $scope.suggestedApps.splice(index, 1);
     $scope.selected.apps.push(name);
   }
 
-  $scope.moveToSuggests = function(name){
+  $scope.moveToSuggests = function(name) {
     var index = $scope.selected.apps.indexOf(name);
-    $scope.selected.apps.splice(index,1);
+    $scope.selected.apps.splice(index, 1);
     $scope.suggestedApps.push(name);
   }
 
@@ -96,19 +105,17 @@ app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
     event.dataTransfer.setData('app', app)
   }
   $scope.dragover = function(event) {
-      event.preventDefault();
+    event.preventDefault();
   }
   $scope.drop = function(event) {
-    console.log('drop',event)
     var id = event.dataTransfer.getData('app');
-    console.log(id,event.dataTransfer)
-    if(!id) return;
+    if (!id) return;
     var app = document.getElementById(id);
-    if(this == event.srcElement) {
+    if (this == event.srcElement) {
       var index = Math.round((event.offsetY) / 50);
       this.insertBefore(app, this.children[index]);
     } else {
-      if(event.offsetY > event.srcElement.offsetHeight / 2) {
+      if (event.offsetY > event.srcElement.offsetHeight / 2) {
         this.insertBefore(app, event.srcElement.nextElementSibling);
       } else {
         this.insertBefore(app, event.srcElement);
@@ -119,19 +126,21 @@ app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
 
   $scope.setApps = function() {
     var apps = document.getElementById('selected').childNodes;
-    $scope.selected.apps = Object.keys(apps).map(function(key){
+    $scope.selected.apps = Object.keys(apps).map(function(key) {
       return apps[key].id;
-    }).filter(function(e){
-      return  e;
+    }).filter(function(e) {
+      return e;
     });
 
     $scope.suggestedApps = $scope.apps.filter(function(app) {
-      return !$scope.selected.apps.find(function(a){return a == app});
+      return !$scope.selected.apps.find(function(a) {
+        return a == app
+      });
     })
     $scope.$apply();
   }
   $scope.onOver = function(e) {
-   angular.element(e.target).addClass("hover");
+    angular.element(e.target).addClass("hover");
   };
   $scope.onOut = function(e) {
     angular.element(e.target).removeClass("hover");
@@ -152,4 +161,3 @@ app.controller('optionsCtrl', function($scope, $http, $rootScope ) {
 
 
 });
-

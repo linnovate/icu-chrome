@@ -1,7 +1,7 @@
 'use strict';
 
 app.apps = function($scope) {
-  $scope.apps = [
+  $scope.availableApps = [
     {
       class: 'gmail',
       link: 'https://mail.google.com/'

@@ -23,7 +23,7 @@
     <div class="middle-header"></div>
     <div ng-show="profile.name">
       <div>{{profile.name}}&nbsp;</div>
-      <img src="{{profile.image}}" />
+      <img ng-src="{{profile.image}}" />
     </div>
   </div>
   <div class="main">
@@ -38,21 +38,21 @@
           </div>
           <ul class="actions">
             <li class="new-meeting">
-              <a href="https://calendar.google.com">
+              <a target="_blank" href="https://calendar.google.com">
                 <img src="images/icon-calendar.svg" />
-                <div>new meeting</div>
+                <div>{{locale['new meeting']}}</div>
               </a>
             </li>
             <li class="new-task">
-              <a href="http://root.hrm.demo.linnovate.net/tasks">
+              <a target="_blank" href="{{selected.services['projects & tasks'].url}}/tasks">
                 <img src="images/icon-new-task.svg" />
-                <div>tasks</div>
+                <div>{{locale['tasks']}}</div>
               </a>
              </li>
             <li class="new-project">
-              <a href="http://root.hrm.demo.linnovate.net/projects">
+              <a target="_blank" href="{{selected.services['projects & tasks'].url}}/projects" href="http://root.hrm.demo.linnovate.net/projects">
                 <img src="images/icon-new-project.svg" />
-                <div>projects</div>
+                <div>{{locale['projects']}}</div>
               </a>
             </li>
           </ul>
@@ -96,7 +96,7 @@
         <ul ng-show="active == 'tasks'" class="tasks">
           <li ng-repeat="item in tabs.tasks.items" style="color:black">
             <div>
-              <a class="tasks-summary" href="{{choosen.projects.url}}/tasks/all/{{item.id}}/activities">{{item.title}}</a>
+              <a class="tasks-summary" target="_blank" href="{{selected.services['projects & tasks'].url}}/tasks/all/{{item.id}}/activities">{{item.title}}</a>
               <div class="partition"></div>
               <div class="tasks-date">
                 {{item.updated | date: 'H:mm dd/MM/yy'}}
@@ -115,7 +115,7 @@
         <ul ng-show="active == 'projects'" class="projects">
           <li ng-repeat="item in tabs.projects.items" style="color:black">
             <div>
-              <a class="projects-summary" href="{{choosen.projects.url}}/projects/all/{{item.id}}/activities">{{item.title}}</a>
+              <a class="projects-summary" target="_blank" href="{{selected.services['projects & tasks'].url}}/projects/all/{{item.id}}/activities">{{item.title}}</a>
               <div class="partition"></div>
               <div class="projects-date">
                 {{item.updated | date: 'H:mm dd/MM/yy'}}

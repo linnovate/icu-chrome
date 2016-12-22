@@ -1,75 +1,80 @@
 'use strict';
 
-var app = angular.module("app", ['ngDragDrop','ui.bootstrap']);
+var app = angular.module("app", ['ngDragDrop', 'ui.bootstrap']);
 
-app.controller('icuCtrl', function ($scope, $http,$uibModal,$rootScope ) {
+app.controller('icuCtrl', function($scope, $http, $uibModal, $rootScope) {
 
   app.services($scope, $http, $rootScope);
-  console.log('pppp',$scope)
   app.apps($scope);
 
   $scope.locale = {};
 
-  $scope.openPopup = function(){
-    console.log('pppppppppp')
-
- var modalInstance = $uibModal.open({
-         templateUrl: '../options.html'/*,
+  $scope.openPopup = function() {
+    var modalInstance = $uibModal.open({
+      templateUrl: '../options.html'
+      /*,
       controller: 'optionsCtrl'*/
     });
 
-    modalInstance.result.then(function (selectedItem) {
-     console.log('pppppppp')
-    }, function () {
-     
+    modalInstance.result.then(function(selectedItem) {}, function() {
+
     });
   }
 
+  $rootScope.$on('resetTab', function() {
+    $scope.initTab();
+  });
 
-  chrome.storage.sync.get(defaults, function(data) {
-    console.log(data)
-    $scope.selected = data;
-    var google = [];
-    for(var n in data.services) {
-      let s = data.services[n];
-      if(s.name == 'google') {
-        google.push(n);
+  $scope.initTab = function() {
+
+    chrome.storage.sync.get(defaults, function(data) {
+
+      $scope.selected = data;
+      var google = [];
+      for (var n in data.services) {
+        let s = data.services[n];
+        if (s.name == 'google') {
+          google.push(n);
+        } else {
+          $scope.services[n][s.name](s);
+        }
+      }
+      if (google.length) $scope.googleAuth(google);
+
+      if (data.lang == 'he') {
+        $scope.locale = locale;
       } else {
-        $scope.services[n][s.name](s);
+        for (var n in locale) {
+          $scope.locale[n] = n;
+        }
       }
-    }
-    if(google.length) $scope.googleAuth(google);
 
-    if (data.lang == 'he') {
-      $scope.locale = locale;
-    } else {
-      for (var n in locale) {
-        $scope.locale[n] = n;
+      $scope.tabs = {
+        meetings: {
+          title: $scope.locale.meetings,
+          items: []
+        },
+        tasks: {
+          title: $scope.locale.tasks,
+          items: []
+        },
+        projects: {
+          title: $scope.locale.projects,
+          items: []
+        }
       }
-    }
 
-    $scope.tabs = {
-      meetings: {
-        title: $scope.locale.meetings,
-        items: []
-      },
-      tasks: {
-        title: $scope.locale.tasks,
-        items: []
-      },
-      projects: {
-        title: $scope.locale.projects,
-        items: []
-      }
-    }
+      $scope.apps = $scope.availableApps.filter(function(a) {
+        return (data.apps.indexOf(a.class) !== -1);
+      });
 
-    $scope.apps = data.apps.map(function(app) {
-      return $scope.apps.find(function(a) {return app == a.class});
+      $scope.$apply();
+
     })
 
-    $scope.$apply();
+  };
 
-  })
+  $scope.initTab();
 
   $scope.active = 'meetings';
 
@@ -80,23 +85,23 @@ app.controller('icuCtrl', function ($scope, $http,$uibModal,$rootScope ) {
   $scope.meetsDist = function(item) {
     let distance = new Date(item.start.dateTime).getTime() - Date.now();
     distance = Math.round(distance / 60000)
-    if(distance < 0) {
+    if (distance < 0) {
 
       item.style = {
         color: '#f06f1b',
         width: '80%'
       }
-      if(new Date(item.end.dateTime).getTime < Date.now()) {
-        item.style.text = ' '+$scope.locale.passed;
+      if (new Date(item.end.dateTime).getTime < Date.now()) {
+        item.style.text = ' ' + $scope.locale.passed;
       } else {
-        item.style.text = ' '+$scope.locale['now !'];
+        item.style.text = ' ' + $scope.locale['now !'];
       }
 
     } else if (distance < 10) {
       item.style = {
         color: '#f06f1b',
         width: '80%',
-        text: ' '+$scope.locale['in N minutes'].replace('N', distance)
+        text: ' ' + $scope.locale['in N minutes'].replace('N', distance)
       }
     } else if (distance < 60) {
       item.style = {
@@ -124,22 +129,19 @@ app.controller('icuCtrl', function ($scope, $http,$uibModal,$rootScope ) {
 
 
 
-
-
-
 app.filter('caps', function() {
   return function(txt) {
-    if(!txt) return;
+    if (!txt) return;
     return txt.replace(/^([a-z]{1})/, function(match, p1) {
       return p1.toUpperCase();
     });
   }
 })
-.filter('capitalize', function() {
-  return function(txt) {
-    if(!txt) return;
-    return txt.replace(/\b[a-z]/g, function(match) {
-      return match.toUpperCase();
-    });
-  }
-});
+  .filter('capitalize', function() {
+    return function(txt) {
+      if (!txt) return;
+      return txt.replace(/\b[a-z]/g, function(match) {
+        return match.toUpperCase();
+      });
+    }
+  });
