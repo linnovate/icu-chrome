@@ -12,7 +12,7 @@
     "newtab": "tab.html"
   },
   "options_page": "options.html",
-  "content_security_policy": "script-src 'self' 'unsafe-eval' http://ajax.googleapis.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": [
     "tabs",
     "identity",
@@ -20,8 +20,9 @@
     "cookies",
     "<all_urls>"
   ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAypim9rqPLq8LwZtlNFjngYrV906xBlBdjk4921rLC1vYQ2I6m2ACUjrHra8zt3eEan1Vc+iiYgbK6dgW8sGOp1Ng3IMT7sngWFHkAyalP3mLGu681tPGseMr2OLDxpktiabjtI6krNGpfSmazFG3jGkX+LQR2ICjXqO0SIsSUcXvSD0Ftpm9jYb0JNOT36cQF5bnyiJMfl24sxsXsL6s/smTmY1tb8BuX3tl2JuD7Mo7xrUziA9PwSrZHOqs/3L3Q1xrO2lxmuiI2/jCSHiGxy3HfB7BMVbZv70sqp2Oh9iD/nmMEp7kY1TwW2BZoWjXTKjRjT342GAB1zKVXoANqQIDAQAB",
   "oauth2": {
-    "client_id": "pfbjhkfenkngpobbfjcoopohodpccgkd.apps.googleusercontent.com",
+    "client_id": "473899478840-1nf3bmmc4hdlbtto3ns7nect1v81bsi9.apps.googleusercontent.com",
 
     "scopes": [
       "https://www.googleapis.com/auth/calendar.readonly",
