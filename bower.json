@@ -1,9 +1,6 @@
 {
   "name": "icu-chrome",
   "version": "0.0.0",
-  "dependencies": {
-    "angular-bootstrap": "^2.2.0"
-  },
   "devDependencies": {
     "chai": "~3.2.0",
     "mocha": "~2.2.5"
