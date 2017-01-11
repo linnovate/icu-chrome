@@ -1,6 +1,6 @@
 body {
   opacity: 0;
-  color: white;
+  color: white !important;
   font-family: 'Open Sans light';
   margin: 0;
   background-image: url("../images/whitebackground.jpg");
