@@ -1,10 +1,38 @@
 'use strict';
 
 app.services = function($scope, $http, $rootScope) {
+
+  function setBackgroundImage(url) {
+    document.body.style.background = 'url("' + url + '") 0% 0% / cover rgb(220,220,220)';
+    document.body.style.opacity = 'initial';
+  }
+
+  function parsePhoto(arrayBuffer) {
+    var byteArray = new Uint8Array(arrayBuffer);
+    var string = String.fromCharCode.apply(null, byteArray);
+    var dataUri = 'data:image/jpeg;base64,' + btoa(string);
+    return dataUri;
+  }
+
+  function parseCookie() {
+    var arr = document.cookie.split('/;\s/');
+    var result = {};
+    for(var i=0; i<arr.length; i++) {
+      let key = arr[i].match(/.+?(?==)/)[0];
+      let value = arr[i].slice(key.length + 1);
+      result[key] = value;
+    }
+    return result;
+  }
+
+
   $scope.services = {
 
     background: {
+
       google: function() {
+        var url = parseCookie().bg;
+        if(url) return setBackgroundImage(url);
         $http({
           method: 'GET',
           url: 'https://clients3.google.com/cast/chromecast/home'
@@ -12,9 +40,9 @@ app.services = function($scope, $http, $rootScope) {
           var match = res.data.match(/JSON\.parse\('.+'\)(?=\)\.)/)[0];
           var urls = eval(match);
           var index = Math.round(Math.random() * (urls[0].length - 1));
-          var url = urls[0][index][0];
-          document.body.style.background = 'url("' + url + '") 0% 0% / cover rgb(220,220,220)';
-          document.body.style.opacity = 'initial';
+          url = urls[0][index][0];
+          setBackgroundImage(url);
+          document.cookie = 'bg=' + url + '; expires=' + new Date(Date.now() + 2*60*60*1000).toUTCString();
         }).
         catch (function(res) {
           $scope.services.background.local()
@@ -30,7 +58,6 @@ app.services = function($scope, $http, $rootScope) {
             $scope.showMsg = 'go to ' + opts.url;
             $scope.url = opts.url;
           }
-
 
           // get background url for today
           $http({
@@ -52,12 +79,10 @@ app.services = function($scope, $http, $rootScope) {
                 document.body.style.opacity = 'initial';
               }
             }
-          }).
-          catch (function(res) {
+          }).catch(function(res) {
             $scope.services.background.local()
           })
-        })
-
+        });
       },
 
       local: function() {
@@ -94,8 +119,6 @@ app.services = function($scope, $http, $rootScope) {
             $scope.url = opts.url;
           }
 
-
-
           $http({
             method: 'GET',
             url: opts.url + '/api/users/me',
@@ -108,20 +131,16 @@ app.services = function($scope, $http, $rootScope) {
               image: res.data.profile.avatar
             }
 
-          }).
-          catch (function(res) {
+          }).catch(function(res) {
             console.log(res)
           })
-
         });
-
-
       }
     },
 
 
-
     meetings: {
+
       google: function(token) {
         $http({
           method: 'GET',
@@ -183,25 +202,22 @@ app.services = function($scope, $http, $rootScope) {
               }).then(function(res) {
                 attendee.photo = parsePhoto(res.data);
               })
-            }).
-            catch (function(res) {
+            }).catch(function(res) {
               console.log(res)
             })
-
           })
-
-
         })
       },
 
       custom: function() {
         console.log('executed meetings custom function')
       }
+
     },
 
 
-
     "projects & tasks": {
+
       google: function() {
         console.log('executed projects google function')
       },
@@ -215,8 +231,6 @@ app.services = function($scope, $http, $rootScope) {
             $scope.showMsg = 'go to ' + opts.url;
             $scope.url = opts.url;
           }
-
-
 
           $http({
             method: 'GET',
@@ -238,9 +252,7 @@ app.services = function($scope, $http, $rootScope) {
               $scope.users[p.creator] = {};
             });
             // usersSource.projects = true;
-
-          }).
-          catch (function(res) {
+          }).catch(function(res) {
             console.log(res)
           })
 
@@ -265,13 +277,10 @@ app.services = function($scope, $http, $rootScope) {
               $scope.users[t.creator] = {};
             });
             // usersSource.tasks = true;
-
-          }).
-          catch (function(res) {
+          }).catch(function(res) {
             console.log(res)
           })
         });
-
 
       }
     }
@@ -300,12 +309,3 @@ app.services = function($scope, $http, $rootScope) {
   }
 
 };
-
-
-
-function parsePhoto(arrayBuffer) {
-  var byteArray = new Uint8Array(arrayBuffer);
-  var string = String.fromCharCode.apply(null, byteArray);
-  var dataUri = 'data:image/jpeg;base64,' + btoa(string);
-  return dataUri;
-}
