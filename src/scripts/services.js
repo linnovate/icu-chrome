@@ -14,8 +14,9 @@ app.services = function($scope, $http, $rootScope) {
     return dataUri;
   }
 
-  function parseCookie() {
-    var arr = document.cookie.split('/;\s/');
+  function parseCookies() {
+    if(document.cookie == '') return {};
+    var arr = document.cookie.split(/;\s/);
     var result = {};
     for(var i=0; i<arr.length; i++) {
       let key = arr[i].match(/.+?(?==)/)[0];
@@ -25,13 +26,12 @@ app.services = function($scope, $http, $rootScope) {
     return result;
   }
 
-
   $scope.services = {
 
     background: {
 
       google: function() {
-        var url = parseCookie().bg;
+        var url = parseCookies().bg;
         if(url) return setBackgroundImage(url);
         $http({
           method: 'GET',
