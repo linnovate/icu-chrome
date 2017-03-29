@@ -139,6 +139,52 @@ section li > div {
   font-weight: bold;
   font-size: 22px;
 }
+.task-star {
+  -webkit-mask: url(/images/icon-star.svg) no-repeat;
+  mask: url(/images/icon-star.svg) no-repeat;
+  background-color: black;
+  min-width: 17px;
+  height: 20px;
+  display: inline-block;
+  margin: 3px;
+}
+[class^="task-status-"] {
+  -webkit-mask: url(/images/icon-flag.svg) no-repeat;
+  mask: url(/images/icon-flag.svg) no-repeat;
+  min-width: 16px;
+  height: 20px;
+  display: inline-block;
+  margin: 3px;
+}
+.task-status-new {
+  background-color: #ff4081;
+}
+.task-status-in-progress {
+  background-color: #f69679;
+}
+.task-status-rejected {
+  background-color: #ef5350;
+}
+.task-status-review {
+  background-color: #8dc63f;
+}
+.task-status-done {
+  background-color: #598527;
+}
+.task-status-archived {
+  background-color: #ab47bc;
+}
+.task-status-assigned {
+  background-color: #2979ff;
+}
+.task-assign {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 3px;
+  width: 80px;
+  max-width: 80px;
+  white-space: nowrap;
+}
 .meetings-location, .projects-location, .tasks-location {
   font-size: 16px;
   color: grey;

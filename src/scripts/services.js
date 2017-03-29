@@ -269,7 +269,11 @@ app.services = function($scope, $http, $rootScope) {
               'Authorization': 'Bearer ' + cookie.value
             }
           }).then(function(res) {
-            $scope.tabs.tasks.items = res.data.content;
+            $scope.tabs.tasks.items = res.data.content.filter((item) => {
+              return new Date(item.due) > new Date();
+            }).sort((a, b) => {
+              return new Date(a.due) - new Date(b.due);
+            });
 
             $scope.users = $scope.users || {};
 

@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="styles/header.css">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
   <link rel="stylesheet" type="text/css" href="styles/apps.css" />
-  <link rel="stylesheet" type="text/css" href="styles/apps.css" />
+  <link rel="stylesheet" type="text/css" href="styles/modal.css" />
   <link rel="stylesheet" type="text/css" href="styles/options.css" />
   <link rel="stylesheet" type="text/css" href="lib/open-sans/css/open-sans.css" />
   <link rel="stylesheet" type="text/css" href="lib/angular-bootstrap/ui-bootstrap-csp.css" />
@@ -97,9 +97,10 @@
             <div>
               <a class="tasks-summary" target="_blank" href="{{selected.services['projects & tasks'].url}}/tasks/all/{{item.id}}/activities">{{item.title}}</a>
               <div class="partition"></div>
-              <div class="tasks-date">
-                {{item.updated | date: 'H:mm dd/MM/yy'}}
-              </div>
+              <div class="task-assign" title="{{item.assign.name}}">{{item.assign.name}}</div>
+              <i class="task-status-{{item.status}}" title="{{item.status}}"></i>
+              <i class="task-star" ng-style="{ visibility: item.star == true ? 'visible': 'hidden' }"></i>
+              <div class="tasks-date">{{item.due | date: 'dd/MM/yy'}}</div>
             </div>
             <div>
               <div class="tasks-location"></div>
@@ -108,7 +109,7 @@
                 <a href="mailto:{{users[item.creator].email}}">{{users[item.creator].name || users[item.creator].email}}</a>
               </div>
             </div>
-            <hr class="tasks-border" style="color: #{{item.color}};">
+            <hr class="tasks-border" style="color: #cccccc;">
           </li>
         </ul>
         <ul ng-show="active == 'projects'" class="projects">
