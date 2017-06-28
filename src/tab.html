@@ -93,14 +93,14 @@
           </li>
         </ul>
         <ul ng-show="active == 'tasks'" class="tasks">
-          <li ng-repeat="item in tabs.tasks.items" style="color:black">
+          <li ng-repeat="item in tabs.tasks.items | orderBy: '-due'" style="color:black">
             <div>
               <a class="tasks-summary" target="_blank" href="{{selected.services['projects & tasks'].url}}/tasks/all/{{item.id}}/activities">{{item.title}}</a>
               <div class="partition"></div>
               <div class="task-assign" title="{{item.assign.name}}">{{item.assign.name}}</div>
               <i class="task-status-{{item.status}}" title="{{item.status}}"></i>
               <i class="task-star" ng-style="{ visibility: item.star == true ? 'visible': 'hidden' }"></i>
-              <div class="tasks-date">{{item.due | date: 'dd/MM/yy'}}</div>
+              <div ng-class="(item.past?'task-date-past':'tasks-date')">{{item.due | date: 'dd/MM/yy'}}</div>
             </div>
             <div>
               <div class="tasks-location"></div>

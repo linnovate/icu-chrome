@@ -193,6 +193,11 @@ section li > div {
   font-size: 18px;
   font-weight: bold;
 }
+.task-date-past{
+  font-size: 18px;
+  font-weight: bold;
+  color: red;
+}
 .meetings-border, .projects-border, .tasks-border {
   border: none;
   border-bottom: 4px solid;
