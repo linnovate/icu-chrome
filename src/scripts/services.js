@@ -271,11 +271,7 @@ app.services = function($scope, $http, $rootScope) {
           }).then(function(res) {
             $scope.tabs.tasks.items = res.data.content.filter((item) => {
               return  item.title;
-            }).sort((a, b) => {
-              if(new Date(a.due))
-              return new Date(a.due) - new Date(b.due);
             });
-
             $scope.tabs.tasks.items.forEach(function(el) {
               if(new Date(el.due)&&new Date(el.due) < new Date)
               el.past=true;  
